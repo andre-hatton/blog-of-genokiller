@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/values/colors.xml -->
+    <eat-comment />
+
+    <color name="black">#000000</color>
+    <color name="dark_slate_gray">#2F4F4F</color>
+    <color name="gray_1">#C0C0C0</color>
+    <color name="gray_2">#AFAFAF</color>
+    <!-- From: file:/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/values/dimens.xml -->
+    <eat-comment />
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="app_name">blog of genokiller</string>
+    <string name="close">Fermer</string>
+    <string name="commentaire">Votre commentaire</string>
+    <string name="image_description">Image article</string>
+    <string name="pseudo">Pseudo</string>
+    <string name="pull_to_refresh_pull_label">Pull to refresh…</string>
+    <string name="pull_to_refresh_refreshing_label">Loading…</string>
+    <string name="pull_to_refresh_release_label">Release to refresh…</string>
+    <string name="pull_to_refresh_tap_label">Tap to refresh…</string>
+    <string name="submit">Envoyer</string>
+    <!-- From: file:/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/values/styles.xml -->
+    <eat-comment />
+
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <style name="AppTheme" parent="AppBaseTheme"> <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+</resources>

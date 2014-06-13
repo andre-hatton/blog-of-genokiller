@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res" >
+            <file
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/values-v11/styles.xml"
+                qualifiers="v11" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Holo.Light" > <!-- API 11 theme customizations can go here. -->
+                </style>
+            </file>
+            <file
+                name="translate_center_left"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/xml/translate_center_left.xml"
+                qualifiers=""
+                type="xml" />
+            <file
+                name="searchable"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/xml/searchable.xml"
+                qualifiers=""
+                type="xml" />
+            <file
+                name="translate_center_right"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/xml/translate_center_right.xml"
+                qualifiers=""
+                type="xml" />
+            <file
+                name="translate_left_center"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/xml/translate_left_center.xml"
+                qualifiers=""
+                type="xml" />
+            <file
+                name="translate_right_center"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/xml/translate_right_center.xml"
+                qualifiers=""
+                type="xml" />
+            <file
+                name="list_comment"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/list_comment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="comment_popup"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/comment_popup.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="search"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/search.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="pull_to_refresh_header"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/pull_to_refresh_header.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_article"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/activity_article.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="load_more_footer"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/load_more_footer.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="ic_action_search"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-xhdpi/ic_action_search.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-xhdpi/ic_launcher.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="bg_img_notfound"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-xhdpi/bg_img_notfound.jpeg"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_action_search"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-xxhdpi/ic_action_search.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-xxhdpi/ic_launcher.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="bg_img_notfound"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-xxhdpi/bg_img_notfound.jpeg"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/values-sw720dp-land/dimens.xml"
+                qualifiers="sw720dp-land" >
+                <dimen name="activity_horizontal_margin" >128dp
+                </dimen>
+            </file>
+            <file
+                name="costum_progress_bar"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable/costum_progress_bar.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="ic_pulltorefresh_arrow"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-hdpi/ic_pulltorefresh_arrow.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_action_search"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-hdpi/ic_action_search.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-hdpi/ic_launcher.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="bg_img_notfound"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-hdpi/bg_img_notfound.jpeg"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="articles__controller"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/menu/articles__controller.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/values-v14/styles.xml"
+                qualifiers="v14" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Holo.Light.DarkActionBar" > <!-- API 14 theme customizations can go here. -->
+                </style>
+            </file>
+            <file
+                name="ic_pulltorefresh_arrow"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-mdpi/ic_pulltorefresh_arrow.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_action_search"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-mdpi/ic_action_search.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-mdpi/ic_launcher.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="bg_img_notfound"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-mdpi/bg_img_notfound.jpeg"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/values/colors.xml"
+                qualifiers="" >
+                <color name="gray_1" >#C0C0C0
+                </color>
+                <color name="dark_slate_gray" >#2F4F4F
+                </color>
+                <color name="gray_2" >#AFAFAF
+                </color>
+                <color name="black" >#000000
+                </color>
+            </file>
+            <file
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/values/strings.xml"
+                qualifiers="" >
+                <string name="close" >Fermer
+                </string>
+                <string name="pull_to_refresh_pull_label" >Pull to refresh…
+                </string>
+                <string name="pseudo" >Pseudo
+                </string>
+                <string name="pull_to_refresh_release_label" >Release to refresh…
+                </string>
+                <string name="commentaire" >Votre commentaire
+                </string>
+                <string name="pull_to_refresh_tap_label" >Tap to refresh…
+                </string>
+                <string name="pull_to_refresh_refreshing_label" >Loading…
+                </string>
+                <string name="app_name" >blog of genokiller
+                </string>
+                <string name="submit" >Envoyer
+                </string>
+                <string name="image_description" >Image article
+                </string>
+            </file>
+            <file
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/values/dimens.xml"
+                qualifiers="" >
+                <dimen name="activity_horizontal_margin" >16dp
+                </dimen>
+                <dimen name="activity_vertical_margin" >16dp
+                </dimen>
+            </file>
+            <file
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/values/styles.xml"
+                qualifiers="" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Light" >
+
+                    <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+                    -->
+                </style>
+
+                <style
+                    name="AppTheme"
+                    parent="AppBaseTheme" > <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+                </style>
+            </file>
+            <file
+                name="ic_pulltorefresh_arrow"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-ldpi/ic_pulltorefresh_arrow.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="ic_action_search"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-ldpi/ic_action_search.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-ldpi/ic_launcher.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="bg_img_notfound"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-ldpi/bg_img_notfound.jpeg"
+                qualifiers="ldpi"
+                type="drawable" />
+        </source>
+        <source path="/home/yoshizuka/AndroidStudioProjects/blog/app/build/res/rs/debug" />
+        <source path="/home/yoshizuka/AndroidStudioProjects/blog/app/build/res/generated/debug" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/debug/res" />
+    </dataSet>
+
+</merger>

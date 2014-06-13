@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">blog of genokiller</string>
+	<string name="pull_to_refresh_pull_label">Pull to refresh&#8230;</string>
+	<string name="pull_to_refresh_release_label">Release to refresh&#8230;</string>
+	<string name="pull_to_refresh_refreshing_label">Loading&#8230;</string>
+	<string name="pull_to_refresh_tap_label">Tap to refresh&#8230;</string>
+	<string name="image_description">Image article</string>
+	<string name="pseudo">Pseudo</string>
+	<string name="commentaire">Votre commentaire</string>
+	<string name="submit">Envoyer</string>
+	<string name="close">Fermer</string>
+</resources>

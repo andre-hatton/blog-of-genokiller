@@ -2,44 +2,49 @@ package com.genokiller.blogofgenokiller.helpers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
+import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.genokiller.Blog_Application;
 import com.genokiller.blogofgenokiller.controllers.Application_Controller;
 import com.genokiller.blogofgenokiller.controllers.R;
+import com.genokiller.blogofgenokiller.models.Application_Model;
 import com.genokiller.blogofgenokiller.models.Article_Model;
 import com.genokiller.blogofgenokiller.utils.Comment;
+import com.genokiller.blogofgenokiller.utils.Item;
 import com.novoda.imageloader.core.model.ImageTagFactory;
 
-public class Application_Helper extends ArrayAdapter<HashMap<String, String>>
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.w3c.dom.Text;
+
+public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
 {
 	private final Activity								context;
 
 	private LayoutInflater								layoutInflater;
-	private final ArrayList<HashMap<String, String>>	maps;
+	private final ArrayList<HashMap<String, Item>>	maps;
 	ImageTagFactory										imageTagFactory;
 	private Application_Controller						main;
-	private String[]									infonames	= new String[10];
+	private Item[]									infonames	= new Item[50];
 
-	static class ViewHolder
-	{
-		public TextView		description;
-		public TextView		title;
-		public ImageView	image_url;
-		public TextView		info_0, info_1, info_2, info_3, info_4, info_5,
-							info_6, info_7, info_8, info_9;
-		public TextView		comment_url;
-	}
 
-	public Application_Helper(Activity context, ArrayList<HashMap<String, String>> maps, Application_Controller application_Controller)
+	public Application_Helper(Activity context, ArrayList<HashMap<String, Item>> maps, Application_Controller application_Controller)
 	{
 		super(context, R.layout.activity_article, maps);
 		this.context = context;
@@ -58,141 +63,115 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, String>>
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		if (convertView == null)
-		{
-			layoutInflater = context.getLayoutInflater();
-			convertView = layoutInflater.inflate(R.layout.activity_article, null);
+        View row = convertView;
+        View elem;
 
-			ViewHolder viewHolder = new ViewHolder();
-			viewHolder.title = (TextView) convertView.findViewById(R.id.title);
-			viewHolder.description = (TextView) convertView.findViewById(R.id.description);
-			viewHolder.image_url = (ImageView) convertView.findViewById(R.id.image);
-			viewHolder.info_0 = (TextView) convertView.findViewById(R.id.info_0);
-			viewHolder.info_1 = (TextView) convertView.findViewById(R.id.info_1);
-			viewHolder.info_2 = (TextView) convertView.findViewById(R.id.info_2);
-			viewHolder.info_3 = (TextView) convertView.findViewById(R.id.info_3);
-			viewHolder.info_4 = (TextView) convertView.findViewById(R.id.info_4);
-			viewHolder.info_5 = (TextView) convertView.findViewById(R.id.info_5);
-			viewHolder.info_6 = (TextView) convertView.findViewById(R.id.info_6);
-			viewHolder.info_7 = (TextView) convertView.findViewById(R.id.info_7);
-			viewHolder.info_8 = (TextView) convertView.findViewById(R.id.info_8);
-			viewHolder.info_9 = (TextView) convertView.findViewById(R.id.info_9);
-			viewHolder.comment_url = (TextView) convertView.findViewById(R.id.comment);
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        row = inflater.inflate(R.layout.list, parent, false);
 
-			convertView.setTag(viewHolder);
-		}
-		ViewHolder holder = (ViewHolder) convertView.getTag();
-		String description = maps.get(position).get(Article_Model.DESCRIPTION);
-		final String title = maps.get(position).get(Article_Model.TITLE);
-		String image_url = maps.get(position).get(Article_Model.IMAGE_URL);
-		final String comment_url = maps.get(position).get(Article_Model.COMMENT_URL);
-		String comment_count = maps.get(position).get(Article_Model.COMMENT_COUNT);
-		final String article_id = maps.get(position).get(Article_Model.ID);
 
-		for (int i = 0; i < 10; i++)
-		{
-			infonames[i] = null;
-		}
-		for (int i = 0; i < maps.get(position).size(); i++)
-		{
-			if (maps.get(position).get("info_" + i) != null && !maps.get(position).get("info_" + i).equals(""))
-				infonames[i] = maps.get(position).get("info_" + i);
-		}
+        String description = maps.get(position).get(Article_Model.DESCRIPTION).getText();
+        String title = maps.get(position).get(Article_Model.TITLE).getText();
+        String image_url = maps.get(position).get(Article_Model.IMAGE_URL).getText();
+        String comment_url = maps.get(position).get(Article_Model.COMMENT_URL).getText();
+        String comment_count = maps.get(position).get(Article_Model.COMMENT_COUNT).getText();
+        final String article_id = maps.get(position).get(Article_Model.ID).getText();
 
-		String[] images = image_url.split("/");
+        RelativeLayout list = (RelativeLayout)row.findViewById(R.id.listview);
+        RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-		holder.title.setText(title);
-		holder.description.setText(description);
-		holder.image_url.setTag(imageTagFactory.build(image_url, main));
-		holder.comment_url.setText("Voir les commentaires (" + comment_count + ")");
-		holder.comment_url.setTag(comment_url);
-		// action du popu des commentaires
-		holder.comment_url.setOnClickListener(new Comment(main, context, title, comment_url, article_id));
+        TextView titre = new TextView(context);
+        titre.setText(title);
+        titre.setId(1);
+        elem = titre;
+        layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_TOP, 1);
+        layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
+        list.addView(titre, layoutParams1);
 
-		if (infonames[0] != null)
-		{
-			holder.info_0.setVisibility(View.VISIBLE);
-			holder.info_0.setText(infonames[0]);
-		}
-		else
-			holder.info_0.setVisibility(View.GONE);
-		if (infonames[1] != null)
-		{
-			holder.info_1.setVisibility(View.VISIBLE);
-			holder.info_1.setText(infonames[1]);
-		}
-		else
-			holder.info_1.setVisibility(View.GONE);
-		if (infonames[2] != null)
-		{
-			holder.info_2.setVisibility(View.VISIBLE);
-			holder.info_2.setText(infonames[2]);
-		}
-		else
-			holder.info_2.setVisibility(View.GONE);
-		if (infonames[3] != null)
-		{
-			holder.info_3.setVisibility(View.VISIBLE);
-			holder.info_3.setText(infonames[3]);
-		}
-		else
-			holder.info_3.setVisibility(View.GONE);
-		if (infonames[4] != null)
-		{
-			holder.info_4.setVisibility(View.VISIBLE);
-			holder.info_4.setText(infonames[4]);
-		}
-		else
-			holder.info_4.setVisibility(View.GONE);
-		if (infonames[5] != null)
-		{
-			holder.info_5.setVisibility(View.VISIBLE);
-			holder.info_5.setText(infonames[5]);
-		}
-		else
-			holder.info_5.setVisibility(View.GONE);
-		if (infonames[6] != null)
-		{
-			holder.info_6.setVisibility(View.VISIBLE);
-			holder.info_6.setText(infonames[6]);
-		}
-		else
-			holder.info_6.setVisibility(View.GONE);
-		if (infonames[7] != null)
-		{
-			holder.info_7.setVisibility(View.VISIBLE);
-			holder.info_7.setText(infonames[7]);
-		}
-		else
-			holder.info_7.setVisibility(View.GONE);
-		if (infonames[8] != null)
-		{
-			holder.info_8.setVisibility(View.VISIBLE);
-			holder.info_8.setText(infonames[8]);
-		}
-		else
-			holder.info_8.setVisibility(View.GONE);
-		if (infonames[9] != null)
-		{
-			holder.info_9.setVisibility(View.VISIBLE);
-			holder.info_9.setText(infonames[9]);
-		}
-		else
-			holder.info_9.setVisibility(View.GONE);
+        layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        ImageView img = new ImageView(context);
+        img.setTag(imageTagFactory.build(image_url, context));
+        layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
+        img.setId(elem.getId() + 1);
 
-		((ImageView) holder.image_url).setTag(imageTagFactory.build(image_url, context));
+        try
+        {
+            Blog_Application.getImageLoader().getLoader().load(img);
+        }
+        catch (NullPointerException e)
+        {
+            e.printStackTrace();
+        }
+        elem = img;
+        list.addView(img, layoutParams1);
+        layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-		try
-		{
-			Blog_Application.getImageLoader().getLoader().load(holder.image_url);
-		}
-		catch (NullPointerException e)
-		{
-			e.printStackTrace();
-		}
-		// holder.image_url.setImageBitmap(bmp);
+        TextView desc = new TextView(context);
+        desc.setText(description);
+        desc.setId(elem.getId() + 1);
+        layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
+        elem = desc;
+        list.addView(desc, layoutParams1);
 
-		return convertView;
+
+        for (int i = 0; i < infonames.length; i++)
+        {
+            infonames[i] = null;
+        }
+        for (int i = 0; i < maps.get(position).size(); i++)
+        {
+            if (maps.get(position).get("info_" + i) != null && !maps.get(position).get("info_" + i).equals(""))
+                infonames[i] = maps.get(position).get("info_" + i);
+        }
+        for(int i = 0; i < infonames.length; i++)
+        {
+            if(infonames[i] == null) continue;
+            layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            TextView info = new TextView(context);
+            info.setId(elem.getId() + 1);
+            layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
+            info.setText(infonames[i].getText());
+            elem = info;
+            list.addView(info, layoutParams1);
+
+            if(infonames[i].getButton_less() != null)
+            {
+                final int id = infonames[i].getId();
+                layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
+                Button more = new Button(context);
+                Button less = new Button(context);
+                more.setText("+");
+                less.setText("-");
+                less.setId(elem.getId() + 1);
+                less.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String url = "http://blog-of-genokiller.herokuapp.com/admin/articles/updateInfo/" + id;
+                        new Article_Model(Application_Model.METHOD_PUT).execute(url, "type", "less");
+                    }
+                });
+                elem = less;
+                list.addView(less, layoutParams1);
+                layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams1.addRule(RelativeLayout.BELOW, elem.getId() - 1);
+                layoutParams1.addRule(RelativeLayout.RIGHT_OF, elem.getId());
+                more.setId(elem.getId() + 1);
+                more.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String url = "http://blog-of-genokiller.herokuapp.com/admin/articles/updateInfo/" + id;
+                        new Article_Model(Application_Model.METHOD_PUT).execute(url, "type", "more");
+                    }
+                });
+                elem = more;
+                list.addView(more, layoutParams1);
+            }
+        }
+
+        String[] images = image_url.split("/");
+
+		return row;
 	}
 
 }

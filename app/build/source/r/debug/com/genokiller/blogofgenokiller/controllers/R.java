@@ -28,45 +28,34 @@ public final class R {
         public static final int ic_pulltorefresh_arrow=0x7f020004;
     }
     public static final class id {
-        public static final int close_popup=0x7f0a0014;
-        public static final int comment=0x7f0a000d;
-        public static final int comment_list=0x7f0a0010;
-        public static final int description=0x7f0a0001;
-        public static final int description_popup=0x7f0a0012;
-        public static final int image=0x7f0a0002;
-        public static final int info_0=0x7f0a0003;
-        public static final int info_1=0x7f0a0004;
-        public static final int info_2=0x7f0a0005;
-        public static final int info_3=0x7f0a0006;
-        public static final int info_4=0x7f0a0007;
-        public static final int info_5=0x7f0a0008;
-        public static final int info_6=0x7f0a0009;
-        public static final int info_7=0x7f0a000a;
-        public static final int info_8=0x7f0a000b;
-        public static final int info_9=0x7f0a000c;
-        public static final int layout_comment=0x7f0a000e;
-        public static final int list_comment=0x7f0a0015;
-        public static final int load_more_footer=0x7f0a0016;
-        public static final int load_more_progressBar=0x7f0a0018;
-        public static final int message=0x7f0a000f;
-        public static final int pseudo=0x7f0a0011;
-        public static final int pull_to_refresh_header=0x7f0a0019;
-        public static final int pull_to_refresh_image=0x7f0a001b;
-        public static final int pull_to_refresh_progress=0x7f0a001a;
-        public static final int pull_to_refresh_text=0x7f0a001c;
-        public static final int pull_to_refresh_updated_at=0x7f0a001d;
-        public static final int search=0x7f0a001e;
-        public static final int submit=0x7f0a0013;
-        public static final int title=0x7f0a0000;
-        public static final int top_line=0x7f0a0017;
+        public static final int close_popup=0x7f0a0006;
+        public static final int comment_list=0x7f0a0002;
+        public static final int description=0x7f0a0009;
+        public static final int description_popup=0x7f0a0004;
+        public static final int layout_comment=0x7f0a0000;
+        public static final int list_comment=0x7f0a0008;
+        public static final int listview=0x7f0a0007;
+        public static final int load_more_footer=0x7f0a000a;
+        public static final int load_more_progressBar=0x7f0a000c;
+        public static final int message=0x7f0a0001;
+        public static final int pseudo=0x7f0a0003;
+        public static final int pull_to_refresh_header=0x7f0a000d;
+        public static final int pull_to_refresh_image=0x7f0a000f;
+        public static final int pull_to_refresh_progress=0x7f0a000e;
+        public static final int pull_to_refresh_text=0x7f0a0010;
+        public static final int pull_to_refresh_updated_at=0x7f0a0011;
+        public static final int search=0x7f0a0012;
+        public static final int submit=0x7f0a0005;
+        public static final int top_line=0x7f0a000b;
     }
     public static final class layout {
         public static final int activity_article=0x7f030000;
         public static final int comment_popup=0x7f030001;
-        public static final int list_comment=0x7f030002;
-        public static final int load_more_footer=0x7f030003;
-        public static final int pull_to_refresh_header=0x7f030004;
-        public static final int search=0x7f030005;
+        public static final int list=0x7f030002;
+        public static final int list_comment=0x7f030003;
+        public static final int load_more_footer=0x7f030004;
+        public static final int pull_to_refresh_header=0x7f030005;
+        public static final int search=0x7f030006;
     }
     public static final class menu {
         public static final int articles__controller=0x7f090000;

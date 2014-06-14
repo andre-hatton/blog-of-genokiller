@@ -246,6 +246,11 @@
                 path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-ldpi/bg_img_notfound.jpeg"
                 qualifiers="ldpi"
                 type="drawable" />
+            <file
+                name="list"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/list.xml"
+                qualifiers=""
+                type="layout" />
         </source>
         <source path="/home/yoshizuka/AndroidStudioProjects/blog/app/build/res/rs/debug" />
         <source path="/home/yoshizuka/AndroidStudioProjects/blog/app/build/res/generated/debug" />

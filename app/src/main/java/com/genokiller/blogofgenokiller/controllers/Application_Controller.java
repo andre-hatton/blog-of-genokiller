@@ -22,9 +22,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 import com.genokiller.blogofgenokiller.helpers.Application_Helper;
 import com.genokiller.blogofgenokiller.models.Article_Model;
+import com.genokiller.blogofgenokiller.utils.Item;
 import com.genokiller.blogofgenokiller.views.Applications;
 import com.genokiller.blogofgenokiller.views.Applications.OnLoadMoreListener;
 import com.genokiller.blogofgenokiller.views.Articles;
@@ -38,7 +40,7 @@ public class Application_Controller extends ListActivity
 	/**
 	 * Liste des articles récupérés
 	 */
-	protected ArrayList<HashMap<String, String>>	articleList		= new ArrayList<HashMap<String, String>>();
+	protected ArrayList<HashMap<String, Item>>	articleList		= new ArrayList<HashMap<String, Item>>();
 	/**
 	 * Lien au model des articles
 	 */
@@ -86,7 +88,7 @@ public class Application_Controller extends ListActivity
 	/**
 	 * Listes des données json récupérées
 	 */
-	protected ArrayList<HashMap<String, String>>	maps;
+	protected ArrayList<HashMap<String, Item>>	maps;
 
 	/**
 	 * Données affichées dans la vue
@@ -132,7 +134,7 @@ public class Application_Controller extends ListActivity
 	 * 
 	 * @return Le liste des données json
 	 */
-	public ArrayList<HashMap<String, String>> getMap()
+	public ArrayList<HashMap<String, Item>> getMap()
 	{
 		article = new Article_Model();
 		// charge dans un thread secondaire
@@ -188,28 +190,32 @@ public class Application_Controller extends ListActivity
 				String comment_url = c.getString(Article_Model.COMMENT_URL);
 				int comment_count = c.getInt(Article_Model.COMMENT_COUNT);
 				int id = c.getInt(Article_Model.ID);
-				HashMap<String, String> map = new HashMap<String, String>();
+				HashMap<String, Item> map = new HashMap<String, Item>();
 				// adding HashList to ArrayList
-				map.put(Article_Model.ID, String.valueOf(id));
-				map.put(Article_Model.TITLE, title);
-				map.put(Article_Model.DESCRIPTION, description);
-				map.put(Article_Model.IMAGE_URL, image_url);
-				map.put(Article_Model.COMMENT_URL, comment_url);
-				map.put(Article_Model.COMMENT_COUNT, String.valueOf(comment_count));
+				map.put(Article_Model.ID, new Item(String.valueOf(id)));
+				map.put(Article_Model.TITLE, new Item(title));
+				map.put(Article_Model.DESCRIPTION, new Item(description));
+				map.put(Article_Model.IMAGE_URL, new Item(image_url));
+				map.put(Article_Model.COMMENT_URL, new Item(comment_url));
+				map.put(Article_Model.COMMENT_COUNT, new Item(String.valueOf(comment_count)));
 
 				JSONArray jsArray = c.getJSONArray("infonames");
-				for (int j = 0; j < jsArray.length(); j++)
+                Button more = new Button(this);
+                more.setText("+");
+                Button less = new Button(this);
+                less.setText("-");
+                for (int j = 0; j < jsArray.length(); j++)
 				{
 					JSONObject jsObject = jsArray.getJSONObject(j);
 					if (!jsObject.getBoolean("admin"))
 					{
 						String info = jsObject.getString("info");
 						if (jsObject.getString("name") != null && !jsObject.getString("name").equals("") && !jsObject.getString("name").equals("null"))
-							map.put("info_" + j, info + " : " + jsObject.getString("name"));
+							map.put("info_" + j, new Item(info + " : " + jsObject.getString("name"), jsObject.getInt("id")));
 						else if (jsObject.getString("entier") != null && !jsObject.getString("entier").equals("") && !jsObject.getString("entier").equals("null"))
-							map.put("info_" + j, info + " : " + jsObject.getString("entier"));
+							map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id"), more, less));
 						else if (jsObject.getString("long_name") != null && !jsObject.getString("long_name").equals("") && !jsObject.getString("long_name").equals("null"))
-							map.put("info_" + j, info + " : " + jsObject.getString("long_name"));
+							map.put("info_" + j, new Item(info + " : " + jsObject.getString("long_name"), jsObject.getInt("id")));
 					}
 				}
 				articleList.add(map);
@@ -341,7 +347,7 @@ public class Application_Controller extends ListActivity
 			if (!isEnd)
 			{
 				page++;
-				ArrayList<HashMap<String, String>> maps = getMap();
+				ArrayList<HashMap<String, Item>> maps = getMap();
 				articles.setAdapter(new Application_Helper(main, maps, main));
 				articles.setSelectionFromTop(position - 1, y);
 			}

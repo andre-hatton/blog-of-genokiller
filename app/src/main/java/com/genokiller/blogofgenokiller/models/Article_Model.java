@@ -31,7 +31,9 @@ public class Article_Model extends Application_Model
 	public final static String	COMMENT_COUNT	= "comment_count";
 
 	public Article_Model()
-	{}
+	{
+        super();
+    }
 	public Article_Model(int id, String title, String description, String image_url)
 	{
 		super();
@@ -43,6 +45,7 @@ public class Article_Model extends Application_Model
 
 	public Article_Model(int id)
 	{
+        super(id);
 		this.id = id;
 	}
 

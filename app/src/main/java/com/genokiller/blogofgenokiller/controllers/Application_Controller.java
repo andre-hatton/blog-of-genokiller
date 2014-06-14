@@ -14,6 +14,7 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -89,6 +90,7 @@ public class Application_Controller extends ListActivity
 	 * Listes des données json récupérées
 	 */
 	protected ArrayList<HashMap<String, Item>>	maps;
+    private boolean is_admin = false;
 
 	/**
 	 * Données affichées dans la vue
@@ -136,6 +138,10 @@ public class Application_Controller extends ListActivity
 	 */
 	public ArrayList<HashMap<String, Item>> getMap()
 	{
+        SharedPreferences settings = getSharedPreferences("admin", 0);
+        is_admin = settings.getBoolean("is_admin", false);
+        is_admin = true;
+
 		article = new Article_Model();
 		// charge dans un thread secondaire
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -201,22 +207,35 @@ public class Application_Controller extends ListActivity
 
 				JSONArray jsArray = c.getJSONArray("infonames");
                 Button more = new Button(this);
-                more.setText("+");
                 Button less = new Button(this);
-                less.setText("-");
                 for (int j = 0; j < jsArray.length(); j++)
 				{
 					JSONObject jsObject = jsArray.getJSONObject(j);
-					if (!jsObject.getBoolean("admin"))
-					{
-						String info = jsObject.getString("info");
-						if (jsObject.getString("name") != null && !jsObject.getString("name").equals("") && !jsObject.getString("name").equals("null"))
-							map.put("info_" + j, new Item(info + " : " + jsObject.getString("name"), jsObject.getInt("id")));
-						else if (jsObject.getString("entier") != null && !jsObject.getString("entier").equals("") && !jsObject.getString("entier").equals("null"))
-							map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id"), more, less));
-						else if (jsObject.getString("long_name") != null && !jsObject.getString("long_name").equals("") && !jsObject.getString("long_name").equals("null"))
-							map.put("info_" + j, new Item(info + " : " + jsObject.getString("long_name"), jsObject.getInt("id")));
-					}
+                    if (!is_admin && !jsObject.getBoolean("admin"))
+                    {
+                        String info = jsObject.getString("info");
+                        if (jsObject.getString("name") != null && !jsObject.getString("name").equals("") && !jsObject.getString("name").equals("null"))
+                            map.put("info_" + j, new Item(info + " : " + jsObject.getString("name"), jsObject.getInt("id")));
+                        else if (jsObject.getString("entier") != null && !jsObject.getString("entier").equals("") && !jsObject.getString("entier").equals("null"))
+                        {
+                            if(is_admin)
+                                map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id"), more, less));
+                            else
+                                map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id")));
+                        }
+                        else if (jsObject.getString("long_name") != null && !jsObject.getString("long_name").equals("") && !jsObject.getString("long_name").equals("null"))
+                            map.put("info_" + j, new Item(info + " : " + jsObject.getString("long_name"), jsObject.getInt("id")));
+                    }
+                    else if (is_admin)
+                    {
+                        String info = jsObject.getString("info");
+                        if (jsObject.getString("name") != null && !jsObject.getString("name").equals("") && !jsObject.getString("name").equals("null"))
+                            map.put("info_" + j, new Item(info + " : " + jsObject.getString("name"), jsObject.getInt("id")));
+                        else if (jsObject.getString("entier") != null && !jsObject.getString("entier").equals("") && !jsObject.getString("entier").equals("null"))
+                            map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id"), more, less));
+                        else if (jsObject.getString("long_name") != null && !jsObject.getString("long_name").equals("") && !jsObject.getString("long_name").equals("null"))
+                            map.put("info_" + j, new Item(info + " : " + jsObject.getString("long_name"), jsObject.getInt("id")));
+                    }
 				}
 				articleList.add(map);
 			}

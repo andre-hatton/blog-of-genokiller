@@ -90,12 +90,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Application_Model.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Application_Model.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/models/Application_Model.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="17" selection-start="1254" selection-end="1254" vertical-scroll-proportion="0.0" vertical-offset="1350" max-vertical-offset="2655">
+            <state line="118" column="52" selection-start="3656" selection-end="3656" vertical-scroll-proportion="0.71428573" vertical-offset="900" max-vertical-offset="3165">
               <folding>
-                <element signature="e#6067#6082#0" expanded="true" />
+                <element signature="method#setContext#0;class#Application_Model#0" expanded="true" />
+                <element signature="e#7305#7320#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,24 +105,9 @@
       <file leaf-file-name="Comment.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/utils/Comment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="164" column="20" selection-start="5229" selection-end="5229" vertical-scroll-proportion="0.0" vertical-offset="1350" max-vertical-offset="4245">
+            <state line="139" column="30" selection-start="4311" selection-end="4311" vertical-scroll-proportion="0.0" vertical-offset="450" max-vertical-offset="4245">
               <folding>
                 <element signature="e#6785#6800#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Application_Helper.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/helpers/Application_Helper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="150" column="98" selection-start="6229" selection-end="6229" vertical-scroll-proportion="0.07692308" vertical-offset="2210" max-vertical-offset="2730">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#5910#6272#0" expanded="true" />
-                <element signature="e#6253#6254#0" expanded="true" />
-                <element signature="e#6737#7099#0" expanded="true" />
-                <element signature="e#7080#7081#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -130,8 +116,19 @@
       <file leaf-file-name="Article_Model.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/models/Article_Model.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="16" selection-start="825" selection-end="825" vertical-scroll-proportion="0.0" vertical-offset="190" max-vertical-offset="1650">
+            <state line="34" column="16" selection-start="825" selection-end="825" vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="1650">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Articles_Controller.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Articles_Controller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="70" selection-start="494" selection-end="556" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -151,10 +148,10 @@
       <file leaf-file-name="Application_Controller.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Application_Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="213" column="122" selection-start="6257" selection-end="6257" vertical-scroll-proportion="-10.333333" vertical-offset="2481" max-vertical-offset="6210">
+            <state line="142" column="24" selection-start="3754" selection-end="3754" vertical-scroll-proportion="-33.51852" vertical-offset="775" max-vertical-offset="6480">
               <folding>
-                <element signature="e#1387#1410#0" expanded="true" />
-                <element signature="e#5155#5169#0" expanded="true" />
+                <element signature="e#1429#1452#0" expanded="true" />
+                <element signature="e#5391#5405#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -581,10 +578,11 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_article.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/utils/Item.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Application_Controller.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/models/Application_Model.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/models/Article_Model.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/helpers/Application_Helper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/models/Application_Model.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Articles_Controller.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Application_Controller.java" />
       </list>
     </option>
   </component>
@@ -696,62 +694,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -791,124 +733,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="blogofgenokiller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="genokiller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blogofgenokiller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="utils" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="genokiller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blogofgenokiller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="genokiller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blogofgenokiller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="helpers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1166,7 +990,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295325" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33067274" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25085518" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17571884" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1246,13 +1070,6 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/helpers/Article_Helper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="1" selection-start="504" selection-end="504" vertical-scroll-proportion="0.3482143" vertical-offset="0" max-vertical-offset="560">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Articles_Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="17" selection-start="463" selection-end="463" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
           <folding />
         </state>
       </provider>
@@ -1341,23 +1158,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/views/Applications.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="13" selection-start="828" selection-end="828" vertical-scroll-proportion="0.0" vertical-offset="585" max-vertical-offset="4545">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Application_Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="213" column="122" selection-start="6257" selection-end="6257" vertical-scroll-proportion="-10.333333" vertical-offset="2481" max-vertical-offset="6210">
-          <folding>
-            <element signature="e#1387#1410#0" expanded="true" />
-            <element signature="e#5155#5169#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-17/android/os/AsyncTask.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="532" column="53" selection-start="21397" selection-end="21397" vertical-scroll-proportion="0.33214286" vertical-offset="7269" max-vertical-offset="9570">
@@ -1365,12 +1165,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/utils/Comment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/helpers/Application_Helper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="164" column="20" selection-start="5229" selection-end="5229" vertical-scroll-proportion="0.0" vertical-offset="1350" max-vertical-offset="4245">
+        <state line="170" column="0" selection-start="7206" selection-end="7206" vertical-scroll-proportion="0.8269231" vertical-offset="2120" max-vertical-offset="2730">
           <folding>
-            <element signature="e#6785#6800#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#5910#6272#0" expanded="true" />
+            <element signature="e#6253#6254#0" expanded="true" />
+            <element signature="e#6737#7099#0" expanded="true" />
+            <element signature="e#7080#7081#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/views/Applications.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="13" selection-start="828" selection-end="828" vertical-scroll-proportion="0.0" vertical-offset="585" max-vertical-offset="4545">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1381,24 +1192,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/models/Application_Model.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Articles_Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="17" selection-start="1254" selection-end="1254" vertical-scroll-proportion="0.0" vertical-offset="1350" max-vertical-offset="2655">
+        <state line="23" column="70" selection-start="494" selection-end="556" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
           <folding>
-            <element signature="e#6067#6082#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/helpers/Application_Helper.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Application_Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="150" column="98" selection-start="6229" selection-end="6229" vertical-scroll-proportion="0.07692308" vertical-offset="2210" max-vertical-offset="2730">
+        <state line="142" column="24" selection-start="3754" selection-end="3754" vertical-scroll-proportion="-33.51852" vertical-offset="775" max-vertical-offset="6480">
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5910#6272#0" expanded="true" />
-            <element signature="e#6253#6254#0" expanded="true" />
-            <element signature="e#6737#7099#0" expanded="true" />
-            <element signature="e#7080#7081#0" expanded="true" />
+            <element signature="e#1429#1452#0" expanded="true" />
+            <element signature="e#5391#5405#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/utils/Comment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="139" column="30" selection-start="4311" selection-end="4311" vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="4245">
+          <folding>
+            <element signature="e#6785#6800#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/models/Application_Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="118" column="52" selection-start="3656" selection-end="3656" vertical-scroll-proportion="0.71428573" vertical-offset="900" max-vertical-offset="3165">
+          <folding>
+            <element signature="method#setContext#0;class#Application_Model#0" expanded="true" />
+            <element signature="e#7305#7320#0" expanded="true" />
           </folding>
         </state>
       </provider>

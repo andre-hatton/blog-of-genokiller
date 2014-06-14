@@ -1,5 +1,7 @@
 package com.genokiller.blogofgenokiller.models;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;
@@ -7,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -19,6 +22,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
@@ -33,6 +37,7 @@ public class Application_Model extends AsyncTask<String, Integer, String>
     public static int METHOD_PUT = 3;
     private int type = METHOD_GET;
     public Application_Model(){}
+    Context context;
     public Application_Model(int method)
     {
         this.type = method;
@@ -85,7 +90,7 @@ public class Application_Model extends AsyncTask<String, Integer, String>
         HttpProtocolParams.setHttpElementCharset(httpParameters, HTTP.UTF_8);
         HttpPost httpPost = null;
         StringBuilder builder = new StringBuilder();
-        HttpClient client = new DefaultHttpClient(httpParameters);
+        DefaultHttpClient client = new DefaultHttpClient(httpParameters);
         try
         {
             httpPost = new HttpPost(url);
@@ -98,6 +103,34 @@ public class Application_Model extends AsyncTask<String, Integer, String>
         {
             httpPost.setEntity(new UrlEncodedFormEntity(params));
             HttpResponse response = client.execute(httpPost);
+
+
+
+            List<Cookie> cookies;
+            cookies = client.getCookieStore().getCookies();
+            if(cookies.size() > 0)
+            {
+                String name = cookies.get(1).getName();
+                String value = cookies.get(1).getValue();
+
+                SharedPreferences settings = context.getSharedPreferences("admin", 0);
+                if(settings.getString("cookie_name", "").isEmpty())
+                {
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean("is_admin", true);
+                    editor.putString("cookie_name", name);
+                    editor.putString("cookie_value", value);
+                    Date date = new Date();
+                    long timestamp = date.getTime();
+                    editor.putLong("timestamp", timestamp);
+
+                    // Commit the edits!
+                    editor.commit();
+                }
+            }
+
+
+
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();
             if (statusCode == 302 || statusCode == 200)
@@ -168,6 +201,11 @@ public class Application_Model extends AsyncTask<String, Integer, String>
         return builder.toString();
     }
 
+    public Application_Model setContext(Context context)
+    {
+        this.context = context;
+        return this;
+    }
     /**
      * Override this method to perform a computation on a background thread. The
      * specified parameters are the parameters passed to {@link #execute}

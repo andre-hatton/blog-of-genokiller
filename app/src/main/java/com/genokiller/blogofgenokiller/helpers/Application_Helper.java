@@ -168,6 +168,14 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                 list.addView(more, layoutParams1);
             }
         }
+        layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        TextView comm = new TextView(context);
+        layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
+        comm.setText("Voir les commentaires");
+        comm.setId(elem.getId() + 1);
+        comm.setOnClickListener(new Comment(main, context, title, comment_url, article_id));
+        elem = comm;
+        list.addView(comm, layoutParams1);
 
         String[] images = image_url.split("/");
 

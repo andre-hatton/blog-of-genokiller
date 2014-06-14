@@ -90,13 +90,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Application_Model.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Application_Model.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/models/Application_Model.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="118" column="52" selection-start="3656" selection-end="3656" vertical-scroll-proportion="0.71428573" vertical-offset="900" max-vertical-offset="3165">
+            <state line="118" column="52" selection-start="3656" selection-end="3656" vertical-scroll-proportion="0.0" vertical-offset="1950" max-vertical-offset="3165">
               <folding>
                 <element signature="method#setContext#0;class#Application_Model#0" expanded="true" />
-                <element signature="e#7305#7320#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Application_Helper.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/helpers/Application_Helper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="170" column="130" selection-start="7336" selection-end="7336" vertical-scroll-proportion="0.78571427" vertical-offset="1965" max-vertical-offset="2760">
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -105,10 +115,8 @@
       <file leaf-file-name="Comment.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/utils/Comment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="139" column="30" selection-start="4311" selection-end="4311" vertical-scroll-proportion="0.0" vertical-offset="450" max-vertical-offset="4245">
-              <folding>
-                <element signature="e#6785#6800#0" expanded="true" />
-              </folding>
+            <state line="139" column="30" selection-start="4311" selection-end="4311" vertical-scroll-proportion="0.0" vertical-offset="2085" max-vertical-offset="4740">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -116,7 +124,7 @@
       <file leaf-file-name="Article_Model.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/models/Article_Model.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="16" selection-start="825" selection-end="825" vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="1650">
+            <state line="34" column="16" selection-start="825" selection-end="825" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="2190">
               <folding />
             </state>
           </provider>
@@ -125,10 +133,8 @@
       <file leaf-file-name="Articles_Controller.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Articles_Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="70" selection-start="494" selection-end="556" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="23" column="70" selection-start="494" selection-end="556" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="660">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -139,7 +145,7 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="0" selection-start="288" selection-end="288" vertical-scroll-proportion="-4.0384617" vertical-offset="0" max-vertical-offset="210">
+            <state line="7" column="0" selection-start="288" selection-end="288" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="210">
               <folding />
             </state>
           </provider>
@@ -148,11 +154,8 @@
       <file leaf-file-name="Application_Controller.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Application_Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="142" column="24" selection-start="3754" selection-end="3754" vertical-scroll-proportion="-33.51852" vertical-offset="775" max-vertical-offset="6480">
-              <folding>
-                <element signature="e#1429#1452#0" expanded="true" />
-                <element signature="e#5391#5405#0" expanded="true" />
-              </folding>
+            <state line="142" column="24" selection-start="3754" selection-end="3754" vertical-scroll-proportion="0.0" vertical-offset="2130" max-vertical-offset="6930">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -160,7 +163,7 @@
       <file leaf-file-name="Applications.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/views/Applications.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="13" selection-start="828" selection-end="828" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4545">
+            <state line="24" column="13" selection-start="828" selection-end="828" vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="5340">
               <folding />
             </state>
           </provider>
@@ -579,17 +582,18 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/utils/Item.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/models/Article_Model.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/helpers/Application_Helper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/models/Application_Model.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Articles_Controller.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Application_Controller.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/helpers/Application_Helper.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="-4" />
     <option name="y" value="31" />
-    <option name="width" value="1920" />
-    <option name="height" value="1018" />
+    <option name="width" value="1928" />
+    <option name="height" value="1022" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -617,7 +621,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -770,6 +773,44 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="helpers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="genokiller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blogofgenokiller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -777,6 +818,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -973,7 +1015,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="31" width="1920" height="1018" extended-state="6" />
+    <frame x="-4" y="31" width="1928" height="1022" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -986,23 +1028,23 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295325" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25085518" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25085518" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17571884" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24973376" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973376" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3990878" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24973376" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1023,18 +1065,68 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/import-summary.txt">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/models/Application_Model.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="870">
+        <state line="118" column="52" selection-start="3656" selection-end="3656" vertical-scroll-proportion="0.0" vertical-offset="1770" max-vertical-offset="3165">
+          <folding>
+            <element signature="method#setContext#0;class#Application_Model#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/utils/Comment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="139" column="30" selection-start="4311" selection-end="4311" vertical-scroll-proportion="0.0" vertical-offset="2085" max-vertical-offset="4740">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/models/Article_Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="16" selection-start="825" selection-end="825" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="2190">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Articles_Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="70" selection-start="494" selection-end="556" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="660">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="288" selection-end="288" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="210">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Application_Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="142" column="24" selection-start="3754" selection-end="3754" vertical-scroll-proportion="0.0" vertical-offset="2130" max-vertical-offset="6930">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/views/Applications.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="13" selection-start="828" selection-end="828" vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="5340">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/import-summary.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="873">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="870" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/import-summary.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="873" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Search_Controller.java">
@@ -1046,16 +1138,12 @@
     </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-17/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="29" selection-start="3931" selection-end="3931" vertical-scroll-proportion="0.33214286" vertical-offset="1134" max-vertical-offset="9675">
-          <folding />
-        </state>
+        <state line="109" column="29" selection-start="3931" selection-end="3931" vertical-scroll-proportion="0.33214286" vertical-offset="1134" max-vertical-offset="9675" />
       </provider>
     </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-17/android/widget/ListView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="438" column="16" selection-start="15313" selection-end="15313" vertical-scroll-proportion="10.580358" vertical-offset="0" max-vertical-offset="54570">
-          <folding />
-        </state>
+        <state line="438" column="16" selection-start="15313" selection-end="15313" vertical-scroll-proportion="10.580358" vertical-offset="0" max-vertical-offset="54570" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/helpers/Search_Helper.java">
@@ -1076,9 +1164,7 @@
     </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-17/android/app/ListActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="242" column="0" selection-start="9743" selection-end="9743" vertical-scroll-proportion="0.33214286" vertical-offset="3099" max-vertical-offset="4500">
-          <folding />
-        </state>
+        <state line="242" column="0" selection-start="9743" selection-end="9743" vertical-scroll-proportion="0.33214286" vertical-offset="3099" max-vertical-offset="4500" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_article.xml">
@@ -1088,10 +1174,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="60" selection-start="812" selection-end="812" vertical-scroll-proportion="0.44859812" vertical-offset="0" max-vertical-offset="535">
           <folding>
-            <element signature="e#221#254#0" expanded="true" />
-            <element signature="e#276#311#0" expanded="true" />
-            <element signature="e#334#369#0" expanded="true" />
-            <element signature="e#390#423#0" expanded="true" />
+            <element signature="e#221#254#0" expanded="false" />
+            <element signature="e#276#311#0" expanded="false" />
+            <element signature="e#334#369#0" expanded="false" />
+            <element signature="e#390#423#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1108,16 +1194,14 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="288" selection-end="288" vertical-scroll-proportion="-4.0384617" vertical-offset="0" max-vertical-offset="210">
+        <state line="7" column="0" selection-start="288" selection-end="288" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="210">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/views/Searchs.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="128" selection-end="128" vertical-scroll-proportion="0.10714286" vertical-offset="0" max-vertical-offset="560">
-          <folding />
-        </state>
+        <state line="5" column="13" selection-start="128" selection-end="128" vertical-scroll-proportion="0.10714286" vertical-offset="0" max-vertical-offset="560" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/views/Articles.java">
@@ -1165,19 +1249,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/helpers/Application_Helper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="170" column="0" selection-start="7206" selection-end="7206" vertical-scroll-proportion="0.8269231" vertical-offset="2120" max-vertical-offset="2730">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5910#6272#0" expanded="true" />
-            <element signature="e#6253#6254#0" expanded="true" />
-            <element signature="e#6737#7099#0" expanded="true" />
-            <element signature="e#7080#7081#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/views/Applications.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="13" selection-start="828" selection-end="828" vertical-scroll-proportion="0.0" vertical-offset="585" max-vertical-offset="4545">
@@ -1195,37 +1266,38 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Articles_Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="70" selection-start="494" selection-end="556" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/controllers/Application_Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="142" column="24" selection-start="3754" selection-end="3754" vertical-scroll-proportion="-33.51852" vertical-offset="775" max-vertical-offset="6480">
-          <folding>
-            <element signature="e#1429#1452#0" expanded="true" />
-            <element signature="e#5391#5405#0" expanded="true" />
-          </folding>
+        <state line="142" column="24" selection-start="3754" selection-end="3754" vertical-scroll-proportion="0.0" vertical-offset="2130" max-vertical-offset="6930">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/utils/Comment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="139" column="30" selection-start="4311" selection-end="4311" vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="4245">
-          <folding>
-            <element signature="e#6785#6800#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/models/Application_Model.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="118" column="52" selection-start="3656" selection-end="3656" vertical-scroll-proportion="0.71428573" vertical-offset="900" max-vertical-offset="3165">
+        <state line="118" column="52" selection-start="3656" selection-end="3656" vertical-scroll-proportion="0.0" vertical-offset="1950" max-vertical-offset="3165">
           <folding>
             <element signature="method#setContext#0;class#Application_Model#0" expanded="true" />
-            <element signature="e#7305#7320#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/genokiller/blogofgenokiller/helpers/Application_Helper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="170" column="130" selection-start="7336" selection-end="7336" vertical-scroll-proportion="0.78571427" vertical-offset="1965" max-vertical-offset="2760">
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

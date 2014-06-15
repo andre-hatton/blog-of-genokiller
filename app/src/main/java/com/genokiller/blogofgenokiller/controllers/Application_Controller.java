@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +20,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -140,7 +142,6 @@ public class Application_Controller extends ListActivity
 	{
         SharedPreferences settings = getSharedPreferences("admin", 0);
         is_admin = settings.getBoolean("is_admin", false);
-        is_admin = true;
 
 		article = new Article_Model();
 		// charge dans un thread secondaire
@@ -149,7 +150,7 @@ public class Application_Controller extends ListActivity
 		// creation de la page appelé
 		String url = BASE_SITE_URL + "/" + page + "/10.json";
 		// données json trouvées
-		String json;
+		String json = null;
 		if (has_search)
 			try
 			{
@@ -160,8 +161,8 @@ public class Application_Controller extends ListActivity
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		json = article.getJsonString(url);
-		try
+        json = article.setContext(this).getJsonString(url);
+        try
 		{
 			// Getting Array of Contacts
 
@@ -429,7 +430,7 @@ public class Application_Controller extends ListActivity
 					{
 						page = bundle.getInt("page");
 						search = bundle.getString("search");
-						max_page = bundle.getInt("max_page", 1000);
+                        max_page = bundle.getInt("max_page", 1000);
 						if (search == null || search.equals(""))
 							has_search = false;
 						else

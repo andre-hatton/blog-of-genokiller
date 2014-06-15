@@ -165,9 +165,9 @@
             <file
                 path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/values/colors.xml"
                 qualifiers="" >
-                <color name="gray_1" >#C0C0C0
-                </color>
                 <color name="dark_slate_gray" >#2F4F4F
+                </color>
+                <color name="gray_1" >#C0C0C0
                 </color>
                 <color name="gray_2" >#AFAFAF
                 </color>
@@ -185,13 +185,13 @@
                 </string>
                 <string name="pull_to_refresh_release_label" >Release to refresh…
                 </string>
-                <string name="commentaire" >Votre commentaire
-                </string>
-                <string name="pull_to_refresh_tap_label" >Tap to refresh…
+                <string name="app_name" >blog of genokiller
                 </string>
                 <string name="pull_to_refresh_refreshing_label" >Loading…
                 </string>
-                <string name="app_name" >blog of genokiller
+                <string name="pull_to_refresh_tap_label" >Tap to refresh…
+                </string>
+                <string name="commentaire" >Votre commentaire
                 </string>
                 <string name="submit" >Envoyer
                 </string>
@@ -249,6 +249,11 @@
             <file
                 name="list"
                 path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/list.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="connexion"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/connexion.xml"
                 qualifiers=""
                 type="layout" />
         </source>

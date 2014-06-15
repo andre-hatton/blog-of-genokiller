@@ -27,12 +27,19 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity
-			android:name=".Search_Controller"
-			android:parentActivityName="com.genokiller.blogofgenokiller.controllers.Articles_Controller" >
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.genokiller.blogofgenokiller.controllers.Articles_Controller" />
-		</activity>
+        <activity
+            android:name=".Search_Controller"
+            android:parentActivityName="com.genokiller.blogofgenokiller.controllers.Articles_Controller" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.genokiller.blogofgenokiller.controllers.Articles_Controller" />
+        </activity>
+        <activity
+            android:name=".Connexion_Controller"
+            android:parentActivityName="com.genokiller.blogofgenokiller.controllers.Connexion_Controller" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.genokiller.blogofgenokiller.controllers.Connexion_Controller" />
+        </activity>
 	</application>
 </manifest>

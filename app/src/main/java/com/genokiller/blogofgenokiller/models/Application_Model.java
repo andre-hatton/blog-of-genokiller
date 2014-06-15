@@ -3,6 +3,7 @@ package com.genokiller.blogofgenokiller.models;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -36,6 +38,7 @@ public class Application_Model extends AsyncTask<String, Integer, String>
     public static int METHOD_POST = 2;
     public static int METHOD_PUT = 3;
     private int type = METHOD_GET;
+    private int status = -1;
     public Application_Model(){}
     Context context;
     public Application_Model(int method)
@@ -50,6 +53,11 @@ public class Application_Model extends AsyncTask<String, Integer, String>
 		try
 		{
 			httpGet = new HttpGet(url);
+            SharedPreferences settings = context.getSharedPreferences("admin", 0);
+            String name = settings.getString("cookie_name", "");
+            String value = settings.getString("cookie_value", "");
+            if(!name.isEmpty() && !value.isEmpty())
+                httpGet.addHeader("Cookie", name + "=" + value);
 		}
 		catch (IllegalArgumentException ex)
 		{
@@ -60,6 +68,7 @@ public class Application_Model extends AsyncTask<String, Integer, String>
 			HttpResponse response = client.execute(httpGet);
 			StatusLine statusLine = response.getStatusLine();
 			int statusCode = statusLine.getStatusCode();
+            status = statusCode;
 			if (statusCode == 200)
 			{
 				HttpEntity entity = response.getEntity();
@@ -94,6 +103,11 @@ public class Application_Model extends AsyncTask<String, Integer, String>
         try
         {
             httpPost = new HttpPost(url);
+            SharedPreferences settings = context.getSharedPreferences("admin", 0);
+            String name = settings.getString("cookie_name", "");
+            String value = settings.getString("cookie_value", "");
+            if(!name.isEmpty() && !value.isEmpty())
+                httpPost.addHeader("Cookie", name + "=" + value);
         }
         catch (IllegalArgumentException ex)
         {
@@ -108,13 +122,21 @@ public class Application_Model extends AsyncTask<String, Integer, String>
 
             List<Cookie> cookies;
             cookies = client.getCookieStore().getCookies();
-            if(cookies.size() > 0)
+            cookie:if(cookies.size() > 0)
             {
-                String name = cookies.get(1).getName();
-                String value = cookies.get(1).getValue();
-
+                int session = -1;
+                for(int i = 0; i < cookies.size(); i++)
+                {
+                    if(cookies.get(i).getName().contains("session"))
+                        session = i;
+                }
+                if(session < 0)
+                    break cookie;
+                String name = cookies.get(session).getName();
+                String value = cookies.get(session).getValue();
+                Log.d("COOKIE", name + " : " + value);
                 SharedPreferences settings = context.getSharedPreferences("admin", 0);
-                if(settings.getString("cookie_name", "").isEmpty())
+                if((settings.getString("cookie_name", "").isEmpty() || !settings.getBoolean("is_admin", false)) && !value.isEmpty())
                 {
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putBoolean("is_admin", true);
@@ -133,6 +155,7 @@ public class Application_Model extends AsyncTask<String, Integer, String>
 
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();
+            status = statusCode;
             if (statusCode == 302 || statusCode == 200)
             {
                 HttpEntity entity = response.getEntity();
@@ -167,6 +190,16 @@ public class Application_Model extends AsyncTask<String, Integer, String>
         try
         {
             httpPut = new HttpPut(url);
+            SharedPreferences settings = context.getSharedPreferences("admin", 0);
+            String name = settings.getString("cookie_name", "");
+            String value = settings.getString("cookie_value", "");
+            if(!name.isEmpty() && !value.isEmpty())
+                httpPut.addHeader("Cookie", name + "=" + value);
+            httpPut.setHeader("Accept-Charset", "charset=utf-8");
+            httpPut.setHeader("Accept-Language", "en-US,en;q=0.5");
+            httpPut.setHeader("Accept-Encoding", "gzip, deflate");
+            httpPut.setHeader("Accept-Type", "application/x-www-form-urlencoded");
+            httpPut.setHeader("Accept", "*/*");
         }
         catch (IllegalArgumentException ex)
         {
@@ -174,12 +207,13 @@ public class Application_Model extends AsyncTask<String, Integer, String>
         }
         try
         {
-            httpPut.setEntity(new UrlEncodedFormEntity(params));
+            httpPut.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
             HttpResponse response = client.execute(httpPut);
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();
-            if (statusCode == 302 || statusCode == 200)
-            {
+            status = statusCode;
+            //if (statusCode == 302 || statusCode == 200)
+            //{
                 HttpEntity entity = response.getEntity();
                 InputStream content = entity.getContent();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(content));
@@ -188,7 +222,9 @@ public class Application_Model extends AsyncTask<String, Integer, String>
                 {
                     builder.append(line);
                 }
-            }
+            //}
+            for(int i = 0; i < httpPut.getAllHeaders().length; i++)
+                Log.d("HEADER", httpPut.getAllHeaders()[i].getName() + " : " + httpPut.getAllHeaders()[i].getValue());
         }
         catch (ClientProtocolException e)
         {
@@ -198,6 +234,10 @@ public class Application_Model extends AsyncTask<String, Integer, String>
         {
             e.printStackTrace();
         }
+        Log.d("PUT", builder.toString());
+        Log.d("STATUS", ""+status);
+        if(builder.length() <= 0)
+            return "";
         return builder.toString();
     }
 
@@ -228,6 +268,16 @@ public class Application_Model extends AsyncTask<String, Integer, String>
         {
             nameValuePairs.add(new BasicNameValuePair(params[i], params[i + 1]));
         }
-        return putJsonUrl(url, nameValuePairs);
+        String result = "";
+        if(type == METHOD_POST)
+            result = postJsonUrl(url, nameValuePairs);
+        else if(type == METHOD_PUT)
+            result = putJsonUrl(url, nameValuePairs);
+        else
+            result = getJsonString(url);
+        if(status < 200 || status > 306)
+            return null;
+        return result;
     }
+
 }

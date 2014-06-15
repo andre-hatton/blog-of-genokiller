@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 
 import com.genokiller.blogofgenokiller.controllers.Application_Controller;
 import com.genokiller.blogofgenokiller.controllers.R;
+import com.genokiller.blogofgenokiller.models.Application_Model;
 import com.genokiller.blogofgenokiller.models.Comment_Model;
 
 public class Comment implements OnClickListener
@@ -219,31 +221,20 @@ public class Comment implements OnClickListener
 			// verification de la longueur soumise
 			if (pseudo_text.length() > 2 && description_text.length() > 20 && article_id != null)
 			{
-				// creation des parametre post a envoyer au serveur web
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-				try
-				{
-					nameValuePairs.add(new BasicNameValuePair("admin_comment[pseudo]", URLEncoder.encode(pseudo_text, "UTF-8")));
-				}
-				catch (UnsupportedEncodingException e1)
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				try
-				{
-					nameValuePairs.add(new BasicNameValuePair("admin_comment[description]", URLEncoder.encode(description_text, "UTF-8")));
-				}
-				catch (UnsupportedEncodingException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				nameValuePairs.add(new BasicNameValuePair("admin_comment[article_id]", article_id));
-				nameValuePairs.add(new BasicNameValuePair("utf8", "1"));
+                String response = null;
 				// envoie des données du commentaire et recuperation du serveur
 				// (qui verifie lui aussi les données de façon plus sur)
-				String response = comment.postJsonUrl("http://blog-of-genokiller.herokuapp.com/articles.json", nameValuePairs);
+                try {
+                    response = new Application_Model(Application_Model.METHOD_POST).execute("http://blog-of-genokiller.herokuapp.com/articles.json", "admin_comment[pseudo]", URLEncoder.encode(pseudo_text, "UTF-8"), "admin_comment[description]", URLEncoder.encode(description_text, "UTF-8"), "admin_comment[article_id]", article_id, "utf8", "1").get();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
 				JSONObject jsonObject = null;
 				try
 				{

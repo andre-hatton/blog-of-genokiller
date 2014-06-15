@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.genokiller.Blog_Application;
 import com.genokiller.blogofgenokiller.controllers.Application_Controller;
@@ -127,7 +129,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
         {
             if(infonames[i] == null) continue;
             layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            TextView info = new TextView(context);
+            final TextView info = new TextView(context);
             info.setId(elem.getId() + 1);
             layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
             info.setText(infonames[i].getText());
@@ -144,11 +146,33 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                 more.setText("+");
                 less.setText("-");
                 less.setId(elem.getId() + 1);
+                final int h = i;
                 less.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String url = "http://blog-of-genokiller.herokuapp.com/admin/articles/updateInfo/" + id;
-                        new Article_Model(Application_Model.METHOD_PUT).execute(url, "type", "less");
+                        try {
+                            String response = new Article_Model(Application_Model.METHOD_PUT).setContext(context).execute(url, "type", "less").get();
+                            if(response == null)
+                            {
+                                Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
+                            }
+                            else
+                            {
+                                String text = String.valueOf(info.getText());
+                                String[] infos = text.split(":");
+                                int info_value = Integer.parseInt(infos[1].trim());
+                                String info_name = infos[0];
+                                int info_value_new = info_value - 1;
+                                info.setText(info_name + ": "  + info_value_new);
+                            }
+                        } catch (InterruptedException e) {
+                            Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        }
                     }
                 });
                 elem = less;
@@ -161,7 +185,27 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                     @Override
                     public void onClick(View v) {
                         String url = "http://blog-of-genokiller.herokuapp.com/admin/articles/updateInfo/" + id;
-                        new Article_Model(Application_Model.METHOD_PUT).execute(url, "type", "more");
+                        try {
+                            if(new Article_Model(Application_Model.METHOD_PUT).setContext(context).execute(url, "type", "more").get() == null)
+                            {
+                                Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
+                            }
+                            else
+                            {
+                                String text = String.valueOf(info.getText());
+                                String[] infos = text.split(":");
+                                int info_value = Integer.parseInt(infos[1].trim());
+                                String info_name = infos[0];
+                                int info_value_new = info_value + 1;
+                                info.setText(info_name + ": "  + info_value_new);
+                            }
+                        } catch (InterruptedException e) {
+                            Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        }
                     }
                 });
                 elem = more;
@@ -171,7 +215,8 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
         layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         TextView comm = new TextView(context);
         layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
-        comm.setText("Voir les commentaires");
+        comm.setText("Voir les commentaires (" + comment_count + ")");
+        comm.setTag(comment_url);
         comm.setId(elem.getId() + 1);
         comm.setOnClickListener(new Comment(main, context, title, comment_url, article_id));
         elem = comm;

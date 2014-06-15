@@ -9,8 +9,11 @@ import java.util.concurrent.ExecutionException;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.text.Layout;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +70,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
 	{
         View row = convertView;
         View elem;
+        final int margin_bottom = 10;
 
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         row = inflater.inflate(R.layout.list, parent, false);
@@ -85,7 +89,13 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
         TextView titre = new TextView(context);
         titre.setText(title);
         titre.setId(1);
+        titre.setTypeface(Typeface.SERIF);
+        titre.setGravity(Gravity.CENTER_HORIZONTAL);
+        titre.setTextSize(TypedValue.COMPLEX_UNIT_SP, 23);
+        titre.setTypeface(Typeface.SERIF);
+        titre.setTypeface(null, Typeface.ITALIC);
         elem = titre;
+        elem.setPadding(0,0,0,margin_bottom);
         layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_TOP, 1);
         layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
         list.addView(titre, layoutParams1);
@@ -105,14 +115,19 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
             e.printStackTrace();
         }
         elem = img;
+        elem.setPadding(0,0,0,margin_bottom);
         list.addView(img, layoutParams1);
         layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         TextView desc = new TextView(context);
         desc.setText(description);
         desc.setId(elem.getId() + 1);
+        desc.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        desc.setTypeface(Typeface.SERIF);
+        desc.setTypeface(null, Typeface.ITALIC);
         layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
         elem = desc;
+        elem.setPadding(0,0,0,margin_bottom);
         list.addView(desc, layoutParams1);
 
 
@@ -133,10 +148,14 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
             info.setId(elem.getId() + 1);
             layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
             info.setText(infonames[i].getText());
+            info.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            info.setTypeface(Typeface.SERIF);
+            info.setTypeface(null, Typeface.ITALIC);
             elem = info;
+            elem.setPadding(0,0,0,margin_bottom);
             list.addView(info, layoutParams1);
 
-            if(infonames[i].getButton_less() != null)
+            if(infonames[i].has_button())
             {
                 final int id = infonames[i].getId();
                 layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -176,6 +195,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                     }
                 });
                 elem = less;
+                elem.setPadding(0,0,0,margin_bottom);
                 list.addView(less, layoutParams1);
                 layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams1.addRule(RelativeLayout.BELOW, elem.getId() - 1);
@@ -209,6 +229,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                     }
                 });
                 elem = more;
+                elem.setPadding(0,0,0,margin_bottom);
                 list.addView(more, layoutParams1);
             }
         }
@@ -220,6 +241,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
         comm.setId(elem.getId() + 1);
         comm.setOnClickListener(new Comment(main, context, title, comment_url, article_id));
         elem = comm;
+        elem.setPadding(0,0,0,margin_bottom);
         list.addView(comm, layoutParams1);
 
         String[] images = image_url.split("/");

@@ -29,6 +29,7 @@ import android.widget.Button;
 
 import com.genokiller.blogofgenokiller.helpers.Application_Helper;
 import com.genokiller.blogofgenokiller.models.Article_Model;
+import com.genokiller.blogofgenokiller.utils.Admin;
 import com.genokiller.blogofgenokiller.utils.Item;
 import com.genokiller.blogofgenokiller.views.Applications;
 import com.genokiller.blogofgenokiller.views.Applications.OnLoadMoreListener;
@@ -140,8 +141,7 @@ public class Application_Controller extends ListActivity
 	 */
 	public ArrayList<HashMap<String, Item>> getMap()
 	{
-        SharedPreferences settings = getSharedPreferences("admin", 0);
-        is_admin = settings.getBoolean("is_admin", false);
+        is_admin = Admin.is_admin(this);
 
 		article = new Article_Model();
 		// charge dans un thread secondaire
@@ -216,26 +216,32 @@ public class Application_Controller extends ListActivity
                     {
                         String info = jsObject.getString("info");
                         if (jsObject.getString("name") != null && !jsObject.getString("name").equals("") && !jsObject.getString("name").equals("null"))
-                            map.put("info_" + j, new Item(info + " : " + jsObject.getString("name"), jsObject.getInt("id")));
+                            if(is_admin)
+                                map.put("info_" + j, new Item(info + " : " + jsObject.getString("name"), jsObject.getInt("id"), Item.BUTTON_EDIT, "name"));
+                            else
+                                map.put("info_" + j, new Item(info + " : " + jsObject.getString("name"), jsObject.getInt("id"), "name"));
                         else if (jsObject.getString("entier") != null && !jsObject.getString("entier").equals("") && !jsObject.getString("entier").equals("null"))
                         {
                             if(is_admin)
-                                map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id"), more, less));
+                                map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id"), Item.BUTTON_MORE_LESS_EDIT, "int"));
                             else
-                                map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id")));
+                                map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id"), "int"));
                         }
                         else if (jsObject.getString("long_name") != null && !jsObject.getString("long_name").equals("") && !jsObject.getString("long_name").equals("null"))
-                            map.put("info_" + j, new Item(info + " : " + jsObject.getString("long_name"), jsObject.getInt("id")));
+                            if(is_admin)
+                                map.put("info_" + j, new Item(info + " : " + jsObject.getString("long_name"), jsObject.getInt("id"), Item.BUTTON_EDIT, "long_name"));
+                            else
+                                map.put("info_" + j, new Item(info + " : " + jsObject.getString("long_name"), jsObject.getInt("id"), "long_name"));
                     }
                     else if (is_admin)
                     {
                         String info = jsObject.getString("info");
                         if (jsObject.getString("name") != null && !jsObject.getString("name").equals("") && !jsObject.getString("name").equals("null"))
-                            map.put("info_" + j, new Item(info + " : " + jsObject.getString("name"), jsObject.getInt("id")));
+                            map.put("info_" + j, new Item(info + " : " + jsObject.getString("name"), jsObject.getInt("id"), Item.BUTTON_EDIT, "name"));
                         else if (jsObject.getString("entier") != null && !jsObject.getString("entier").equals("") && !jsObject.getString("entier").equals("null"))
-                            map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id"), more, less));
+                            map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id"), Item.BUTTON_MORE_LESS_EDIT, "int"));
                         else if (jsObject.getString("long_name") != null && !jsObject.getString("long_name").equals("") && !jsObject.getString("long_name").equals("null"))
-                            map.put("info_" + j, new Item(info + " : " + jsObject.getString("long_name"), jsObject.getInt("id")));
+                            map.put("info_" + j, new Item(info + " : " + jsObject.getString("long_name"), jsObject.getInt("id"), Item.BUTTON_EDIT, "long_name"));
                     }
 				}
 				articleList.add(map);

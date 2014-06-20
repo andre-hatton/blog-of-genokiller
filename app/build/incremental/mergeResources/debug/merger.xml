@@ -256,6 +256,27 @@
                 path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/connexion.xml"
                 qualifiers=""
                 type="layout" />
+            <file
+                name="edit_string"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/edit_string.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/values-w820dp/dimens.xml"
+                qualifiers="w820dp" >
+                <dimen name="activity_horizontal_margin" >64dp
+                </dimen>
+            </file>
+            <file
+                name="edit_text"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/edit_text.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="edit_popup"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/edit_popup.xml"
+                qualifiers=""
+                type="layout" />
         </source>
         <source path="/home/yoshizuka/AndroidStudioProjects/blog/app/build/res/rs/debug" />
         <source path="/home/yoshizuka/AndroidStudioProjects/blog/app/build/res/generated/debug" />

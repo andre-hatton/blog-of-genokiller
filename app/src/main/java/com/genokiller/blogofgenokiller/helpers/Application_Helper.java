@@ -9,15 +9,20 @@ import java.util.concurrent.ExecutionException;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -136,80 +141,112 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
             elem = info;
             list.addView(info, layoutParams1);
 
-            if(infonames[i].getButton_less() != null)
+            if(infonames[i].has_button())
             {
                 final int id = infonames[i].getId();
-                layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
-                Button more = new Button(context);
-                Button less = new Button(context);
-                more.setText("+");
-                less.setText("-");
-                less.setId(elem.getId() + 1);
-                final int h = i;
-                less.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String url = "http://blog-of-genokiller.herokuapp.com/admin/articles/updateInfo/" + id;
-                        try {
-                            String response = new Article_Model(Application_Model.METHOD_PUT).setContext(context).execute(url, "type", "less").get();
-                            if(response == null)
-                            {
-                                Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
+                final int type = infonames[i].getButton();
+
+                switch (type)
+                {
+                    case Item.BUTTON_MORE_LESS:
+                    case Item.BUTTON_MORE_LESS_EDIT:
+                        layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
+                        Button more = new Button(context, null, android.R.attr.buttonStyleSmall);
+                        Button less = new Button(context, null, android.R.attr.buttonStyleSmall);
+                        more.setText("+");
+                        less.setText("-");
+                        less.setId(elem.getId() + 1);
+                        final int h = i;
+                        less.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String url = "http://blog-of-genokiller.herokuapp.com/admin/articles/updateInfo/" + id;
+                                try {
+                                    String response = new Article_Model(Application_Model.METHOD_PUT).setContext(context).execute(url, "type", "less").get();
+                                    if(response == null)
+                                    {
+                                        Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
+                                    }
+                                    else
+                                    {
+                                        String text = String.valueOf(info.getText());
+                                        String[] infos = text.split(":");
+                                        int info_value = Integer.parseInt(infos[1].trim());
+                                        String info_name = infos[0];
+                                        int info_value_new = info_value - 1;
+                                        info.setText(info_name + ": "  + info_value_new);
+                                    }
+                                } catch (InterruptedException e) {
+                                    Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                } catch (ExecutionException e) {
+                                    Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
                             }
-                            else
-                            {
-                                String text = String.valueOf(info.getText());
-                                String[] infos = text.split(":");
-                                int info_value = Integer.parseInt(infos[1].trim());
-                                String info_name = infos[0];
-                                int info_value_new = info_value - 1;
-                                info.setText(info_name + ": "  + info_value_new);
+                        });
+                        elem = less;
+                        list.addView(less, layoutParams1);
+
+                        layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        layoutParams1.addRule(RelativeLayout.BELOW, elem.getId() - 1);
+                        layoutParams1.addRule(RelativeLayout.RIGHT_OF, elem.getId());
+                        more.setId(elem.getId() + 1);
+                        more.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String url = "http://blog-of-genokiller.herokuapp.com/admin/articles/updateInfo/" + id;
+                                try {
+                                    if(new Article_Model(Application_Model.METHOD_PUT).setContext(context).execute(url, "type", "more").get() == null)
+                                    {
+                                        Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
+                                    }
+                                    else
+                                    {
+                                        String text = String.valueOf(info.getText());
+                                        String[] infos = text.split(":");
+                                        int info_value = Integer.parseInt(infos[1].trim());
+                                        String info_name = infos[0];
+                                        int info_value_new = info_value + 1;
+                                        info.setText(info_name + ": "  + info_value_new);
+                                    }
+                                } catch (InterruptedException e) {
+                                    Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                } catch (ExecutionException e) {
+                                    Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
                             }
-                        } catch (InterruptedException e) {
-                            Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
-                            Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
+                        });
+                        elem = more;
+                        list.addView(more, layoutParams1);
+                        if(type == Item.BUTTON_MORE_LESS_EDIT)
+                        {
+                            layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            layoutParams1.addRule(RelativeLayout.BELOW, elem.getId() - 2);
+                            layoutParams1.addRule(RelativeLayout.RIGHT_OF, elem.getId());
+                            Button edit = new Button(context, null, android.R.attr.buttonStyleSmall);
+                            edit.setText("edit");
+                            edit.setId(elem.getId() + 1);
+                            edit.setOnClickListener(new Edit(context, infonames[i], info));
+                            elem = edit;
+                            list.addView(edit, layoutParams1);
                         }
-                    }
-                });
-                elem = less;
-                list.addView(less, layoutParams1);
-                layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams1.addRule(RelativeLayout.BELOW, elem.getId() - 1);
-                layoutParams1.addRule(RelativeLayout.RIGHT_OF, elem.getId());
-                more.setId(elem.getId() + 1);
-                more.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String url = "http://blog-of-genokiller.herokuapp.com/admin/articles/updateInfo/" + id;
-                        try {
-                            if(new Article_Model(Application_Model.METHOD_PUT).setContext(context).execute(url, "type", "more").get() == null)
-                            {
-                                Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
-                            }
-                            else
-                            {
-                                String text = String.valueOf(info.getText());
-                                String[] infos = text.split(":");
-                                int info_value = Integer.parseInt(infos[1].trim());
-                                String info_name = infos[0];
-                                int info_value_new = info_value + 1;
-                                info.setText(info_name + ": "  + info_value_new);
-                            }
-                        } catch (InterruptedException e) {
-                            Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
-                            Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                elem = more;
-                list.addView(more, layoutParams1);
+                        break;
+                    case Item.BUTTON_EDIT:
+                        layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
+                        Button edit = new Button(context, null, android.R.attr.buttonStyleSmall);
+                        edit.setText("edit");
+                        edit.setId(elem.getId() + 1);
+                        edit.setOnClickListener(new Edit(context, infonames[i], info));
+                        elem = edit;
+                        list.addView(edit, layoutParams1);
+                        break;
+                }
+
             }
         }
         layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -226,5 +263,73 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
 
 		return row;
 	}
+
+    class Edit implements View.OnClickListener {
+        private Context context;
+        private String value;
+        private String name;
+        private Item item;
+        private TextView info;
+        public Edit(Context context, Item item, TextView info){
+            this.context = context;
+            String values[] = item.getText().split(":");
+            this.value = values[1].trim();
+            this.name = values[0].trim();
+            this.item = item;
+            this.info = info;
+        }
+        /**
+         * Called when a view has been clicked.
+         *
+         * @param v The view that was clicked.
+         */
+        @Override
+        public void onClick(View v) {
+            LinearLayout viewGroup = (LinearLayout) ((Activity)context).findViewById(R.id.edit_popup_layout);
+            LayoutInflater layoutInflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = layoutInflater.inflate(R.layout.edit_popup, viewGroup);
+
+            // Creating the PopupWindow
+            final PopupWindow popup = new PopupWindow(context);
+            popup.setContentView(layout);
+            popup.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+            popup.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
+            popup.setFocusable(true);
+
+
+            // Displaying the popup at the specified location, + offsets.
+            popup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+            final EditText editText = (EditText)layout.findViewById(R.id.edit_popup_text);
+            editText.setText(value);
+
+            // Getting a reference to Close button, and close the popup when clicked.
+            Button close = (Button) layout.findViewById(R.id.edit_popup_submit);
+            close.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    value = editText.getText().toString();
+                    try {
+                        String result = new Application_Model(Application_Model.METHOD_PUT).setContext(context).execute("http://blog-of-genokiller.herokuapp.com/admin/articles/updateInfoname/" + item.getId(), "value", value, "pk", "1", "name", "infoname_" + item.getType()+"_"+item.getId()).get();
+                        if(result != null)
+                        {
+                            Toast.makeText(context, "Modification réussie", Toast.LENGTH_LONG).show();
+                            Log.d("result", result+" " + value);
+                            info.setText(name + " : " + value);
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        Toast.makeText(context, "Modification échoué", Toast.LENGTH_LONG).show();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                        Toast.makeText(context, "Modification échoué", Toast.LENGTH_LONG).show();
+                    }
+                    popup.dismiss();
+                }
+            });
+        }
+    }
 
 }

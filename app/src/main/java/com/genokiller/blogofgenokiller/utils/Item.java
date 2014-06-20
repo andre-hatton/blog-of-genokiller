@@ -7,29 +7,49 @@ import android.widget.Button;
  */
 public class Item {
     private String text;
-    private Button button_more, button_less;
+    private int button;
     private int id;
-    public Item(String text, Button button_more, Button button_less)
-    {
-        this.text = text;
-        this.button_less = button_less;
-        this.button_more = button_more;
-    }
-    public Item(String text, int id, Button button_more, Button button_less)
-    {
-        this.text = text;
-        this.button_less = button_less;
-        this.button_more = button_more;
-        this.id = id;
-    }
-    public Item(String text)
-    {
-        this.text = text;
-    }
+    private String type;
+    public final static int BUTTON_MORE_LESS = 1;
+    public final static int BUTTON_MORE_LESS_EDIT = 2;
+    public final static int BUTTON_EDIT = 3;
+    public final static int NO_BUTTON = -1;
     public Item(String text, int id)
     {
         this.text = text;
         this.id = id;
+        this.button = NO_BUTTON;
+    }
+    public Item(String text, int id, String type)
+    {
+        this.text = text;
+        this.id = id;
+        this.button = NO_BUTTON;
+        this.type = type;
+    }
+    public Item(String text, int id, int button)
+    {
+        this.text = text;
+        this.button = button;
+        this.id = id;
+    }
+    public Item(String text, int id, int button, String type)
+    {
+        this.text = text;
+        this.button = button;
+        this.id = id;
+        this.type = type;
+    }
+    public Item(String text)
+    {
+        this.text = text;
+        this.button = NO_BUTTON;
+    }
+    public Item(String text, String type)
+    {
+        this.text = text;
+        this.button = NO_BUTTON;
+        this.type = type;
     }
 
     public String getText() {
@@ -40,27 +60,30 @@ public class Item {
         this.text = text;
     }
 
-    public Button getButton_more() {
-        return button_more;
-    }
-
-    public void setButton_more(Button button_more) {
-        this.button_more = button_more;
-    }
-
-    public Button getButton_less() {
-        return button_less;
-    }
-
-    public void setButton_less(Button button_less) {
-        this.button_less = button_less;
-    }
-
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getButton() {
+        return button;
+    }
+
+    public void setButton(int button) {
+        this.button = button;
+    }
+    public boolean has_button(){
+        return button > -1;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

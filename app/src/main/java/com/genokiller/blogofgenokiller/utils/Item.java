@@ -7,17 +7,19 @@ import android.widget.Button;
  */
 public class Item {
     private String text;
-    private boolean has_button;
+    private Button button_more, button_less;
     private int id;
-    public Item(String text, boolean has_button)
+    public Item(String text, Button button_more, Button button_less)
     {
         this.text = text;
-        this.has_button = has_button;
+        this.button_less = button_less;
+        this.button_more = button_more;
     }
-    public Item(String text, int id, boolean has_button)
+    public Item(String text, int id, Button button_more, Button button_less)
     {
         this.text = text;
-        this.has_button = has_button;
+        this.button_less = button_less;
+        this.button_more = button_more;
         this.id = id;
     }
     public Item(String text)
@@ -38,19 +40,27 @@ public class Item {
         this.text = text;
     }
 
+    public Button getButton_more() {
+        return button_more;
+    }
+
+    public void setButton_more(Button button_more) {
+        this.button_more = button_more;
+    }
+
+    public Button getButton_less() {
+        return button_less;
+    }
+
+    public void setButton_less(Button button_less) {
+        this.button_less = button_less;
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public boolean has_button() {
-        return has_button;
-    }
-
-    public void set_has_button(boolean has_button) {
-        this.has_button = has_button;
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,55 +32,19 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 
-/**
- * Liste des requêtes POST, GET, PUT
- */
 public class Application_Model extends AsyncTask<String, Integer, String>
 {
-    /**
-     * Identifie une méthode GET
-     */
     public static int METHOD_GET = 1;
-    /**
-     * Identifie une méthode POST
-     */
     public static int METHOD_POST = 2;
-    /**
-     * Indentifie une méthode PUT
-     */
     public static int METHOD_PUT = 3;
-    /**
-     * Méthode par défaut
-     */
     private int type = METHOD_GET;
-    /**
-     * Identifie le statut du retour du serveur
-     */
     private int status = -1;
-    /**
-     * Lien vers la context
-     */
-    Context context;
-
-    /**
-     * Constructeur par défault
-     */
     public Application_Model(){}
-
-    /**
-     * Défini la méthode de la requête
-     * @param method Identifiant de la méthode
-     */
+    Context context;
     public Application_Model(int method)
     {
         this.type = method;
     }
-
-    /**
-     * Envoie une requete GET au serveur
-     * @param url Url de la page appelée
-     * @return Le resultat de la requete
-     */
 	public String getJsonString(String url)
 	{
 		HttpGet httpGet = null;
@@ -117,20 +80,14 @@ public class Application_Model extends AsyncTask<String, Integer, String>
 					builder.append(line);
 				}
 			}
-            else
-            {
-                return "La requête au serveur a échouée";
-            }
 		}
 		catch (ClientProtocolException e)
 		{
 			e.printStackTrace();
-            return e.getMessage();
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
-            return e.getMessage();
 		}
 		return builder.toString();
 	}

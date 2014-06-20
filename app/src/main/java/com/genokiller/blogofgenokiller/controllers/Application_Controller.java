@@ -26,7 +26,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.genokiller.blogofgenokiller.helpers.Application_Helper;
 import com.genokiller.blogofgenokiller.models.Article_Model;
@@ -93,9 +92,6 @@ public class Application_Controller extends ListActivity
 	 * Listes des données json récupérées
 	 */
 	protected ArrayList<HashMap<String, Item>>	maps;
-    /**
-     * Permet de savoir si on est en mode admin
-     */
     private boolean is_admin = false;
 
 	/**
@@ -103,35 +99,17 @@ public class Application_Controller extends ListActivity
 	 */
 	private void loadFinish()
 	{
-        // layout de base
 		setContentView(R.layout.activity_article);
 
-        // recup de la taille de l'écran
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		width_screen = metrics.widthPixels;
 
-        // recup de la vue (liste des articles)
 		articles = (Articles) findViewById(android.R.id.list);
 		articles.setActivity(this);
 		articles.setWidthScreen(width_screen);
 		articles.setPage(page);
-        if(maps == null)
-        {
-            Toast.makeText(this, "Connexion au serveur échouée", Toast.LENGTH_LONG).show();
-        }
-        else
-        {
-            if(maps.isEmpty())
-            {
-                Toast.makeText(this, "Aucun article trouvé", Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-                // création de la liste selon les articles récupérer sur le site
-	    	    articles.setAdapter(new Application_Helper(this, maps, this));
-            }
-        }
+		articles.setAdapter(new Application_Helper(this, maps, this));
 		articles.setSearch(search);
 		articles.setMax_page(max_page);
 
@@ -162,7 +140,6 @@ public class Application_Controller extends ListActivity
 	 */
 	public ArrayList<HashMap<String, Item>> getMap()
 	{
-        // verifie si on est administrateur
         SharedPreferences settings = getSharedPreferences("admin", 0);
         is_admin = settings.getBoolean("is_admin", false);
 
@@ -174,9 +151,7 @@ public class Application_Controller extends ListActivity
 		String url = BASE_SITE_URL + "/" + page + "/10.json";
 		// données json trouvées
 		String json = null;
-        // on ajoute la recherche si elle est demandée
 		if (has_search)
-        {
 			try
 			{
 				url = BASE_SITE_URL + "/" + page + "/10.json?search[title_or_description_cont]=" + URLEncoder.encode(search, "UTF-8");
@@ -186,16 +161,14 @@ public class Application_Controller extends ListActivity
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-        }
-        // recuperation du resultat de la requete GET
         json = article.setContext(this).getJsonString(url);
         try
 		{
 			// Getting Array of Contacts
+
 			jsonArray = new JSONArray(json);
 			if (jsonArray.length() < 1)
 			{
-                // permet de savoir si on a atteinds la derniere page des articles
 				isEnd = true;
 				try
 				{
@@ -208,17 +181,15 @@ public class Application_Controller extends ListActivity
 				}
 			}
 			else
-            {
 				isEnd = false;
-            }
 
 			// parcours les données json
 			for (int i = 0; i < jsonArray.length(); i++)
 			{
-                // recuperation de l'article courrant
+
 				JSONObject c = jsonArray.getJSONObject(i);
 
-				// recup des élément toujours présent sur un article
+				// Storing each json item in variable
 				max_page = c.getInt("max");
 				String title = c.getString(Article_Model.TITLE);
 				String description = c.getString(Article_Model.DESCRIPTION).replaceAll("<br />", "\n");
@@ -226,7 +197,6 @@ public class Application_Controller extends ListActivity
 				String comment_url = c.getString(Article_Model.COMMENT_URL);
 				int comment_count = c.getInt(Article_Model.COMMENT_COUNT);
 				int id = c.getInt(Article_Model.ID);
-                // creation d'un hash qui contiendra le contenu de chaque articles sous forme (nom => valeurs)
 				HashMap<String, Item> map = new HashMap<String, Item>();
 				// adding HashList to ArrayList
 				map.put(Article_Model.ID, new Item(String.valueOf(id)));
@@ -236,52 +206,45 @@ public class Application_Controller extends ListActivity
 				map.put(Article_Model.COMMENT_URL, new Item(comment_url));
 				map.put(Article_Model.COMMENT_COUNT, new Item(String.valueOf(comment_count)));
 
-                // recuperations des informations supplémentaire des articles (dynamique)
 				JSONArray jsArray = c.getJSONArray("infonames");
+                Button more = new Button(this);
+                Button less = new Button(this);
                 for (int j = 0; j < jsArray.length(); j++)
 				{
 					JSONObject jsObject = jsArray.getJSONObject(j);
-                    // liste des infos visible publiquement
                     if (!is_admin && !jsObject.getBoolean("admin"))
                     {
                         String info = jsObject.getString("info");
-
-                        // on recherche le type de l'info (name => String, entier => Integer, long_name => text)
                         if (jsObject.getString("name") != null && !jsObject.getString("name").equals("") && !jsObject.getString("name").equals("null"))
                             map.put("info_" + j, new Item(info + " : " + jsObject.getString("name"), jsObject.getInt("id")));
                         else if (jsObject.getString("entier") != null && !jsObject.getString("entier").equals("") && !jsObject.getString("entier").equals("null"))
                         {
-                            // pour un entier on ajoute les bouton plus/moins si on est admin
                             if(is_admin)
-                                map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id"), true));
+                                map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id"), more, less));
                             else
                                 map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id")));
                         }
                         else if (jsObject.getString("long_name") != null && !jsObject.getString("long_name").equals("") && !jsObject.getString("long_name").equals("null"))
                             map.put("info_" + j, new Item(info + " : " + jsObject.getString("long_name"), jsObject.getInt("id")));
                     }
-                    // ajout des autres infos pour l'admin
                     else if (is_admin)
                     {
                         String info = jsObject.getString("info");
                         if (jsObject.getString("name") != null && !jsObject.getString("name").equals("") && !jsObject.getString("name").equals("null"))
                             map.put("info_" + j, new Item(info + " : " + jsObject.getString("name"), jsObject.getInt("id")));
                         else if (jsObject.getString("entier") != null && !jsObject.getString("entier").equals("") && !jsObject.getString("entier").equals("null"))
-                            map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id"), true));
+                            map.put("info_" + j, new Item(info + " : " + jsObject.getString("entier"), jsObject.getInt("id"), more, less));
                         else if (jsObject.getString("long_name") != null && !jsObject.getString("long_name").equals("") && !jsObject.getString("long_name").equals("null"))
                             map.put("info_" + j, new Item(info + " : " + jsObject.getString("long_name"), jsObject.getInt("id")));
                     }
 				}
-                // ajoute l'article à la liste des articles
 				articleList.add(map);
 			}
 		}
 		catch (JSONException e)
 		{
-            e.printStackTrace();
-            return null;
+			e.printStackTrace();
 		}
-        // retourne la liste d'articles
 		return articleList;
 	}
 
@@ -290,23 +253,17 @@ public class Application_Controller extends ListActivity
 	 */
 	public boolean onTouchEvent(MotionEvent event)
 	{
-        // glissement droit vers gauche et inversement pour changer de page rapidemment
 		if (event.getAction() == MotionEvent.ACTION_DOWN)
 		{
-            // recup la position x courrante
 			firstX = event.getX();
 		}
 		if (event.getAction() == MotionEvent.ACTION_UP)
 		{
-            // position x à la fin du glissement
 			float lastX = event.getX();
-            // calcul si on a glisser sur au moins la moitié de l'écran
 			if (Math.abs(firstX - lastX) > width_screen / 2)
 			{
-                // page suviant
 				if (firstX > lastX)
 				{
-                    // si on n'est pas sur la dernière page on peu faire le changement
 					if (max_page > page)
 					{
 						Intent intent = null;
@@ -326,7 +283,6 @@ public class Application_Controller extends ListActivity
 				}
 				else
 				{
-                    // si on est pas sur la première page on va à la page précédente
 					if (page > 1)
 					{
 						Intent intent = new Intent(Application_Controller.this, Articles_Controller.class);
@@ -408,7 +364,6 @@ public class Application_Controller extends ListActivity
 		@Override
 		protected void onPostExecute(Void result)
 		{
-            // si on est pas au dernier article on charge les nouveaux articles et les ajoutons à la vue
 			if (!isEnd)
 			{
 				page++;
@@ -451,7 +406,6 @@ public class Application_Controller extends ListActivity
 
 			load_dialog = new ProgressDialog(context, ProgressDialog.STYLE_HORIZONTAL);
 			load_dialog.setMessage("chargement...");
-            load_dialog.setCanceledOnTouchOutside(false);
 			try
 			{
 				load_dialog.show();
@@ -499,10 +453,5 @@ public class Application_Controller extends ListActivity
 			loadFinish();
 			super.onPostExecute(result);
 		}
-        @Override
-        protected void onCancelled()
-        {
-            return;
-        }
 	}
 }

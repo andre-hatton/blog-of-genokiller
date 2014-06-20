@@ -96,7 +96,7 @@ public class Comment implements OnClickListener
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 		// recuperation des données json
-		String json = comment.setContext(context).getJsonString(comment_url + ".json");
+		String json = comment.getJsonString(comment_url + ".json");
 		JSONArray jsArray = null;
 		try
 		{

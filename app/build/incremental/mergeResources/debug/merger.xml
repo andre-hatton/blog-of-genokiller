@@ -277,6 +277,16 @@
                 path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/edit_popup.xml"
                 qualifiers=""
                 type="layout" />
+            <file
+                name="create_article"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/create_article.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="edit_article"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/edit_article.xml"
+                qualifiers=""
+                type="layout" />
         </source>
         <source path="/home/yoshizuka/AndroidStudioProjects/blog/app/build/res/rs/debug" />
         <source path="/home/yoshizuka/AndroidStudioProjects/blog/app/build/res/generated/debug" />

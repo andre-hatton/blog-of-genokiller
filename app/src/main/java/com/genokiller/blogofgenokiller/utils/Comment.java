@@ -96,7 +96,7 @@ public class Comment implements OnClickListener
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 		// recuperation des données json
-		String json = comment.getJsonString(comment_url + ".json");
+		String json = comment.getJsonString(comment_url + ".json").getResult();
 		JSONArray jsArray = null;
 		try
 		{
@@ -225,7 +225,7 @@ public class Comment implements OnClickListener
 				// envoie des données du commentaire et recuperation du serveur
 				// (qui verifie lui aussi les données de façon plus sur)
                 try {
-                    response = new Application_Model(Application_Model.METHOD_POST).execute("http://blog-of-genokiller.herokuapp.com/articles.json", "admin_comment[pseudo]", URLEncoder.encode(pseudo_text, "UTF-8"), "admin_comment[description]", URLEncoder.encode(description_text, "UTF-8"), "admin_comment[article_id]", article_id, "utf8", "1").get();
+                    response = new Application_Model(Application_Model.METHOD_POST).execute(new String[]{Url.BASE_URL + "articles.json", "admin_comment[pseudo]", URLEncoder.encode(pseudo_text, "UTF-8"), "admin_comment[description]", URLEncoder.encode(description_text, "UTF-8"), "admin_comment[article_id]", article_id, "utf8", "1"}).get().getResult();
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }

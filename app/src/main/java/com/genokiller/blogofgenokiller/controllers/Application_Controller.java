@@ -31,16 +31,13 @@ import com.genokiller.blogofgenokiller.helpers.Application_Helper;
 import com.genokiller.blogofgenokiller.models.Article_Model;
 import com.genokiller.blogofgenokiller.utils.Admin;
 import com.genokiller.blogofgenokiller.utils.Item;
+import com.genokiller.blogofgenokiller.utils.Url;
 import com.genokiller.blogofgenokiller.views.Applications;
 import com.genokiller.blogofgenokiller.views.Applications.OnLoadMoreListener;
 import com.genokiller.blogofgenokiller.views.Articles;
 
 public class Application_Controller extends ListActivity
 {
-	/*
-	 * Url de base du site distant
-	 */
-	protected static final String					BASE_SITE_URL	= "http://blog-of-genokiller.herokuapp.com/articles";
 	/**
 	 * Liste des articles récupérés
 	 */
@@ -148,20 +145,20 @@ public class Application_Controller extends ListActivity
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 		// creation de la page appelé
-		String url = BASE_SITE_URL + "/" + page + "/10.json";
+		String url = Url.BASE_URL + "articles/" + page + "/10.json";
 		// données json trouvées
 		String json = null;
 		if (has_search)
 			try
 			{
-				url = BASE_SITE_URL + "/" + page + "/10.json?search[title_or_description_cont]=" + URLEncoder.encode(search, "UTF-8");
+				url = Url.BASE_URL + "articles/" + page + "/10.json?search[title_or_description_cont]=" + URLEncoder.encode(search, "UTF-8");
 			}
 			catch (UnsupportedEncodingException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-        json = article.setContext(this).getJsonString(url);
+        json = article.setContext(this).getJsonString(url).getResult();
         try
 		{
 			// Getting Array of Contacts

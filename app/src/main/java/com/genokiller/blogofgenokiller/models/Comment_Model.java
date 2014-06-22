@@ -55,7 +55,7 @@ public class Comment_Model extends Application_Model
 	}
 
 	/**
-	 * @param comment
+	 * @param description
 	 *        the comment to set
 	 */
 	public void setDescription(String description)

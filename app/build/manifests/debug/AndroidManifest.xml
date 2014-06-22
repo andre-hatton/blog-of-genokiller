@@ -21,5 +21,9 @@
         <activity android:name="com.genokiller.blogofgenokiller.controllers.Connexion_Controller" android:parentActivityName="com.genokiller.blogofgenokiller.controllers.Connexion_Controller">
             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.genokiller.blogofgenokiller.controllers.Connexion_Controller"/>
         </activity>
+        <activity android:name="com.genokiller.blogofgenokiller.controllers.CreateArticle_Controller" android:parentActivityName="com.genokiller.blogofgenokiller.controllers.CreateArticle_Controller">
+        </activity>
+        <activity android:name="com.genokiller.blogofgenokiller.controllers.EditArticle_Controller" android:parentActivityName="com.genokiller.blogofgenokiller.controllers.EditArticle_Controller">
+        </activity>
 	</application>
 </manifest>

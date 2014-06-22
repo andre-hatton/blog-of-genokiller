@@ -11,6 +11,7 @@ import android.widget.SearchView;
 import com.genokiller.blogofgenokiller.controllers.Connexion_Controller;
 import com.genokiller.blogofgenokiller.controllers.R;
 import com.genokiller.blogofgenokiller.controllers.Search_Controller;
+import com.genokiller.blogofgenokiller.utils.Admin;
 
 public class Search extends SearchView
 {
@@ -27,9 +28,7 @@ public class Search extends SearchView
 			@Override
 			public boolean onQueryTextSubmit(String query)
 			{
-                SharedPreferences settings = c.getSharedPreferences("admin", 0);
-
-                if(!settings.getBoolean("is_admin", false) && (query.toLowerCase().trim().equals("connexion admin") || query.toLowerCase().trim().equals("connexion administration") || query.toLowerCase().trim().equals("connection admin") || query.toLowerCase().trim().equals("connection administration")))
+                if(!Admin.is_admin(c) && (query.toLowerCase().trim().equals("connexion admin") || query.toLowerCase().trim().equals("connexion administration") || query.toLowerCase().trim().equals("connection admin") || query.toLowerCase().trim().equals("connection administration")))
                 {
                     Intent intent = new Intent(c, Connexion_Controller.class);
                     Bundle bundle = new Bundle();

@@ -1,5 +1,6 @@
 package com.genokiller.blogofgenokiller.helpers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +11,10 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
@@ -29,11 +33,16 @@ import android.widget.Toast;
 
 import com.genokiller.Blog_Application;
 import com.genokiller.blogofgenokiller.controllers.Application_Controller;
+import com.genokiller.blogofgenokiller.controllers.CreateArticle_Controller;
+import com.genokiller.blogofgenokiller.controllers.EditArticle_Controller;
 import com.genokiller.blogofgenokiller.controllers.R;
+import com.genokiller.blogofgenokiller.controllers.Search_Controller;
 import com.genokiller.blogofgenokiller.models.Application_Model;
 import com.genokiller.blogofgenokiller.models.Article_Model;
+import com.genokiller.blogofgenokiller.utils.Admin;
 import com.genokiller.blogofgenokiller.utils.Comment;
 import com.genokiller.blogofgenokiller.utils.Item;
+import com.genokiller.blogofgenokiller.utils.Url;
 import com.novoda.imageloader.core.model.ImageTagFactory;
 
 import org.apache.http.NameValuePair;
@@ -161,9 +170,9 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                         less.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                String url = "http://blog-of-genokiller.herokuapp.com/admin/articles/updateInfo/" + id;
+                                String url = Url.BASE_URL + "admin/articles/updateInfo/" + id;
                                 try {
-                                    String response = new Article_Model(Application_Model.METHOD_PUT).setContext(context).execute(url, "type", "less").get();
+                                    Url response = new Article_Model(Application_Model.METHOD_PUT).setContext(context).execute(new String[]{url, "type", "less"}).get();
                                     if(response == null)
                                     {
                                         Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
@@ -196,9 +205,9 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                         more.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                String url = "http://blog-of-genokiller.herokuapp.com/admin/articles/updateInfo/" + id;
+                                String url = Url.BASE_URL + "admin/articles/updateInfo/" + id;
                                 try {
-                                    if(new Article_Model(Application_Model.METHOD_PUT).setContext(context).execute(url, "type", "more").get() == null)
+                                    if(new Article_Model(Application_Model.METHOD_PUT).setContext(context).execute(new String[]{url, "type", "more"}).get() == null)
                                     {
                                         Toast.makeText(context, "Echec de la modification de la valeur", Toast.LENGTH_LONG).show();
                                     }
@@ -259,17 +268,83 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
         elem = comm;
         list.addView(comm, layoutParams1);
 
+        if(Admin.is_admin(context))
+        {
+            layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
+            Button create = new Button(context, null, android.R.attr.buttonStyleSmall);
+            create.setText("Nouvel article");
+            create.setId(elem.getId() + 1);
+            create.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(context, CreateArticle_Controller.class);
+                    //Bundle bundle = new Bundle();
+                    // revien sur la premiere page
+                    //bundle.putInt("page", 1);
+                    //bundle.putString("search", query);
+                    //intent.putExtras(bundle);
+                    context.startActivity(intent);
+                    ((Activity) context).finish();
+                    ((Activity) context).overridePendingTransition(R.xml.translate_right_center, R.xml.translate_center_left);
+                }
+            });
+            elem = create;
+            list.addView(create, layoutParams1);
+
+            layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
+            Button edit = new Button(context, null, android.R.attr.buttonStyleSmall);
+            edit.setText("Modifier article");
+            edit.setId(elem.getId() + 1);
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, EditArticle_Controller.class);
+
+                }
+            });
+            elem = edit;
+            list.addView(edit, layoutParams1);
+        }
+
         String[] images = image_url.split("/");
 
 		return row;
 	}
 
+    /**
+     * Classe interne permettant de géré la validation de l'édition des informations
+     */
     class Edit implements View.OnClickListener {
+        /**
+         * L'activité en cours
+         */
         private Context context;
+        /**
+         * La valeur à éditer
+         */
         private String value;
+        /**
+         * Le nom de la valeur à éditer
+         */
         private String name;
+        /**
+         * L'item qui correspond à l'information
+         */
         private Item item;
+        /**
+         * La vue contenant le texte de l'info
+         */
         private TextView info;
+
+        /**
+         * Ajoute les données pour le onClick
+         * @param context
+         * @param item
+         * @param info
+         */
         public Edit(Context context, Item item, TextView info){
             this.context = context;
             String values[] = item.getText().split(":");
@@ -312,11 +387,12 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                 public void onClick(View v) {
                     value = editText.getText().toString();
                     try {
-                        String result = new Application_Model(Application_Model.METHOD_PUT).setContext(context).execute("http://blog-of-genokiller.herokuapp.com/admin/articles/updateInfoname/" + item.getId(), "value", value, "pk", "1", "name", "infoname_" + item.getType()+"_"+item.getId()).get();
+                        // envoie des nouvelles valeurs au serveur
+                        Url result = new Application_Model(Application_Model.METHOD_PUT).setContext(context).execute(new String[]{Url.BASE_URL + "admin/articles/updateInfoname/" + item.getId(), "value", value, "pk", "1", "name", "infoname_" + item.getType()+"_"+item.getId()}).get();
                         if(result != null)
                         {
                             Toast.makeText(context, "Modification réussie", Toast.LENGTH_LONG).show();
-                            Log.d("result", result+" " + value);
+                            Log.d("result", result.getResult()+" " + value);
                             info.setText(name + " : " + value);
                         }
                     } catch (InterruptedException e) {

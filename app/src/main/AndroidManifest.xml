@@ -41,5 +41,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.genokiller.blogofgenokiller.controllers.Connexion_Controller" />
         </activity>
+        <activity
+            android:name=".CreateArticle_Controller"
+            android:parentActivityName="com.genokiller.blogofgenokiller.controllers.CreateArticle_Controller" >
+        </activity>
+        <activity
+            android:name=".EditArticle_Controller"
+            android:parentActivityName="com.genokiller.blogofgenokiller.controllers.EditArticle_Controller" >
+        </activity>
 	</application>
 </manifest>

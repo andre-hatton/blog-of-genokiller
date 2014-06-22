@@ -26,7 +26,7 @@ public class Admin {
         boolean is_admin = false;
         String result = null;
         try {
-            result = new Application_Model(Application_Model.METHOD_GET).setContext(context).execute("http://blog-of-genokiller.herokuapp.com/admin/authors.json").get();
+            result = new Application_Model(Application_Model.METHOD_GET).setContext(context).execute(new String[]{Url.BASE_URL + "admin/authors.json"}).get().getResult();
             if(result != null)
             {
                 try {

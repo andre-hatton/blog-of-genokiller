@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.genokiller.blogofgenokiller.models.Application_Model;
+import com.genokiller.blogofgenokiller.utils.Url;
 
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
@@ -43,8 +44,9 @@ public class Connexion_Controller extends Activity {
                 password_text = password.getText().toString();
                 is_checked = remember.isChecked() ? "1" : "0";
                 String result = null;
+                String[] params = {Url.BASE_URL + "users/sign_in", "user[email]", email_text, "user[password]", password_text, "user[remember_me]", is_checked, "utf8", "1"};
                 try {
-                    result = new Application_Model(Application_Model.METHOD_POST).setContext(context).execute("http://blog-of-genokiller.herokuapp.com/users/sign_in", "user[email]", email_text, "user[password]", password_text, "user[remember_me]", is_checked, "utf8", "1").get();
+                    result = new Application_Model(Application_Model.METHOD_POST).setContext(context).execute(params).get().getResult();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {

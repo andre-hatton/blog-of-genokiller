@@ -15,14 +15,17 @@ import android.widget.Toast;
 import com.genokiller.blogofgenokiller.models.Application_Model;
 import com.genokiller.blogofgenokiller.utils.Url;
 
-import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 
 /**
  * Created by yoshizuka on 14/06/14.
+ * Page caché permettant de ce connecter à l'admin
  */
 public class Connexion_Controller extends Activity {
+    /**
+     * Bouton de validation
+     */
     private Button submit;
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -40,21 +43,24 @@ public class Connexion_Controller extends Activity {
                 email = (EditText)findViewById(R.id.connexion_email);
                 password = (EditText)findViewById(R.id.connexion_password);
                 remember = (CheckBox)findViewById(R.id.connexion_remember);
+
+                // recuperation des données à envoyer
                 email_text = email.getText().toString();
                 password_text = password.getText().toString();
                 is_checked = remember.isChecked() ? "1" : "0";
-                String result = null;
+                Url result = null;
                 String[] params = {Url.BASE_URL + "users/sign_in", "user[email]", email_text, "user[password]", password_text, "user[remember_me]", is_checked, "utf8", "1"};
                 try {
-                    result = new Application_Model(Application_Model.METHOD_POST).setContext(context).execute(params).get().getResult();
+                    result = new Application_Model(Application_Model.METHOD_POST).setContext(context).execute(params).get();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
                 SharedPreferences settings = getSharedPreferences("admin", 0);
-                Log.d("CONNEXION", result);
-                if(settings.getBoolean("is_admin", false) && result.contains("<a href=\"/admin\">Admin</a>"))
+
+                // on vérifie si la connexion a réussi
+                if(settings.getBoolean("is_admin", false) && result.getResult().contains("<a href=\"/admin\">Admin</a>"))
                 {
                     Intent intent = new Intent(context, Articles_Controller.class);
                     context.startActivity(intent);

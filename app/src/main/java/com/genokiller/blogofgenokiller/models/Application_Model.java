@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.genokiller.blogofgenokiller.utils.Admin;
 import com.genokiller.blogofgenokiller.utils.Url;

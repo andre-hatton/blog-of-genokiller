@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +14,6 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -26,6 +24,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.genokiller.blogofgenokiller.helpers.Application_Helper;
 import com.genokiller.blogofgenokiller.models.Article_Model;
@@ -36,6 +35,9 @@ import com.genokiller.blogofgenokiller.views.Applications;
 import com.genokiller.blogofgenokiller.views.Applications.OnLoadMoreListener;
 import com.genokiller.blogofgenokiller.views.Articles;
 
+/**
+ * Controller gérant la page des articles et le résultat des recherche
+ */
 public class Application_Controller extends ListActivity
 {
 	/**
@@ -90,6 +92,9 @@ public class Application_Controller extends ListActivity
 	 * Listes des données json récupérées
 	 */
 	protected ArrayList<HashMap<String, Item>>	maps;
+    /**
+     * Permet de savoir si on est admin
+     */
     private boolean is_admin = false;
 
 	/**
@@ -107,7 +112,14 @@ public class Application_Controller extends ListActivity
 		articles.setActivity(this);
 		articles.setWidthScreen(width_screen);
 		articles.setPage(page);
-		articles.setAdapter(new Application_Helper(this, maps, this));
+        if(maps.isEmpty() && search.isEmpty())
+        {
+            Toast.makeText(this, "Connection impossible", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+    		articles.setAdapter(new Application_Helper(this, maps, this));
+        }
 		articles.setSearch(search);
 		articles.setMax_page(max_page);
 
@@ -149,21 +161,19 @@ public class Application_Controller extends ListActivity
 		// données json trouvées
 		Url json = null;
 		if (has_search)
+        {
 			try
 			{
 				url = Url.BASE_URL + "articles/" + page + "/10.json?search[title_or_description_cont]=" + URLEncoder.encode(search, "UTF-8");
 			}
-			catch (UnsupportedEncodingException e1)
+			catch (UnsupportedEncodingException e)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				e.printStackTrace();
 			}
+        }
         json = article.setContext(this).getJsonString(url);
-        Log.d("RESULT", json.getResult() + " " + json.getStatus());
         try
 		{
-			// Getting Array of Contacts
-
 			jsonArray = new JSONArray(json.getResult());
 			if (jsonArray.length() < 1)
 			{
@@ -179,12 +189,13 @@ public class Application_Controller extends ListActivity
 				}
 			}
 			else
+            {
 				isEnd = false;
+            }
 
 			// parcours les données json
 			for (int i = 0; i < jsonArray.length(); i++)
 			{
-
 				JSONObject c = jsonArray.getJSONObject(i);
 
 				// Storing each json item in variable
@@ -195,6 +206,8 @@ public class Application_Controller extends ListActivity
 				String comment_url = c.getString(Article_Model.COMMENT_URL);
 				int comment_count = c.getInt(Article_Model.COMMENT_COUNT);
 				int id = c.getInt(Article_Model.ID);
+
+                // creation d'une liste des données
 				HashMap<String, Item> map = new HashMap<String, Item>();
 				// adding HashList to ArrayList
 				map.put(Article_Model.ID, new Item(String.valueOf(id)));
@@ -319,6 +332,7 @@ public class Application_Controller extends ListActivity
 	{
 		switch (item.getItemId())
 		{
+            // retour a l'accueil
 			case android.R.id.home:
 				Intent intent = new Intent(this, Articles_Controller.class);
 				startActivity(intent);
@@ -395,8 +409,13 @@ public class Application_Controller extends ListActivity
 	 */
 	class LoadView extends AsyncTask<Void, Void, Void>
 	{
-
+        /**
+         * Le loader
+         */
 		private ProgressDialog	load_dialog;
+        /**
+         * L'activité actuel
+         */
 		private Context			context;
 
 		public LoadView(Context context)
@@ -404,12 +423,16 @@ public class Application_Controller extends ListActivity
 			this.context = context;
 		}
 
+        /**
+         * Début du chargement
+         */
 		protected void onPreExecute()
 		{
 			super.onPreExecute();
 
 			load_dialog = new ProgressDialog(context, ProgressDialog.STYLE_HORIZONTAL);
 			load_dialog.setMessage("chargement...");
+            load_dialog.setCancelable(false);
 			try
 			{
 				load_dialog.show();
@@ -427,6 +450,7 @@ public class Application_Controller extends ListActivity
 		{
 			try
 			{
+                // pendant le chargement on recupere les données a afficher
 				synchronized (this)
 				{
 					Bundle bundle = getIntent().getExtras();
@@ -451,6 +475,10 @@ public class Application_Controller extends ListActivity
 			return null;
 		}
 
+        /**
+         * Fin du chargement, affichage de la page et suppression du loader
+         * @param result
+         */
 		protected void onPostExecute(Void result)
 		{
 			load_dialog.dismiss();

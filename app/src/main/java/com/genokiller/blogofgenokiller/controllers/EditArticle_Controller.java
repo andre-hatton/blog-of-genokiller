@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,6 +27,7 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * Created by yoshizuka on 22/06/14.
+ * Page d'édition d'un article
  */
 public class EditArticle_Controller extends Activity {
     /**
@@ -35,17 +35,21 @@ public class EditArticle_Controller extends Activity {
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // recuperation de la vue
         LayoutInflater l = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         View view = l.inflate(R.layout.edit_article, null);
 
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.edit_article_layout);
 
+        // recuperation de l'id de l'article passé à la page
         Bundle extras = getIntent().getExtras();
         final int article_id = Integer.parseInt(extras.getString("id"));
         Url show = null;
         EditTextInfo[] listInput = new EditTextInfo[100];
         int j = 0;
         try {
+            // on récupere les données de l'article que l'on veut modifier
             show = new Application_Model(Application_Model.METHOD_GET, this).execute(Url.BASE_URL + "admin/articles/" + article_id + ".json").get();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -62,6 +66,7 @@ public class EditArticle_Controller extends Activity {
             }
             if(json != null)
             {
+                // on lit les données de l'article et on en créer un formulaire
                 try {
                     TextView titleLabel = new TextView(this);
                     titleLabel.setText("Titre");
@@ -79,6 +84,7 @@ public class EditArticle_Controller extends Activity {
                     layout.addView(descriptionLabel);
 
                     EditTextInfo descriptionEdit = new EditTextInfo(this);
+                    // en java le br n'est pas interpreté on le change en \n (qui redeviendre br sur le serveur)
                     descriptionEdit.setText(json.getString("description").replace("<br />", "\n"));
                     descriptionEdit.setMandatory(true);
                     descriptionEdit.setName("admin_article[description]");
@@ -96,6 +102,7 @@ public class EditArticle_Controller extends Activity {
                     listInput[j++] = imageEdit;
                     layout.addView(imageEdit);
 
+                    // parcours des infos
                     JSONArray infos = json.getJSONArray("infonames");
                     for(int i = 0; i < infos.length(); i++)
                     {
@@ -160,6 +167,7 @@ public class EditArticle_Controller extends Activity {
                     params[0] = Url.BASE_URL + "admin/articles/" + article_id + ".json";
                     boolean submit = true;
                     int j = 1;
+                    // creation des parametres a envoyer
                     for(int i = 0; i < listInfo.length; i++)
                     {
                         if(listInfo[i] == null)
@@ -216,7 +224,7 @@ public class EditArticle_Controller extends Activity {
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         }
-                        Log.d("result", result.getResult()+"");
+                        // en cas de success de modification le status HTTP est 204
                         if(result.getStatus() == 204)
                         {
                             Toast.makeText(context, "Enregistrement effectué", Toast.LENGTH_LONG).show();

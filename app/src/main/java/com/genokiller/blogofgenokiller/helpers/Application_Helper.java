@@ -1,25 +1,17 @@
 package com.genokiller.blogofgenokiller.helpers;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
-import android.os.Parcelable;
-import android.text.Layout;
+import android.graphics.Typeface;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +32,6 @@ import com.genokiller.blogofgenokiller.controllers.Articles_Controller;
 import com.genokiller.blogofgenokiller.controllers.CreateArticle_Controller;
 import com.genokiller.blogofgenokiller.controllers.EditArticle_Controller;
 import com.genokiller.blogofgenokiller.controllers.R;
-import com.genokiller.blogofgenokiller.controllers.Search_Controller;
 import com.genokiller.blogofgenokiller.models.Application_Model;
 import com.genokiller.blogofgenokiller.models.Article_Model;
 import com.genokiller.blogofgenokiller.utils.Admin;
@@ -49,18 +40,25 @@ import com.genokiller.blogofgenokiller.utils.Item;
 import com.genokiller.blogofgenokiller.utils.Url;
 import com.novoda.imageloader.core.model.ImageTagFactory;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.w3c.dom.Text;
-
 public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
 {
+    /**
+     * Activité courante
+     */
 	private final Activity								context;
 
-	private LayoutInflater								layoutInflater;
+    /**
+     * Liste des données
+     */
 	private final ArrayList<HashMap<String, Item>>	maps;
+    /**
+     * Image du loader
+     */
 	ImageTagFactory										imageTagFactory;
 	private Application_Controller						main;
+    /**
+     * Liste des items
+     */
 	private Item[]									infonames	= new Item[50];
 
 
@@ -70,22 +68,21 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
 		this.context = context;
 		this.maps = maps;
 		this.main = application_Controller;
-		layoutInflater = LayoutInflater.from(application_Controller);
 		/* Image Loader */
 
 		imageTagFactory = ImageTagFactory.newInstance(context, R.id.description);
 		imageTagFactory.setErrorImageId(R.drawable.bg_img_notfound);
 	}
 
-	@SuppressWarnings(
-	{ "unused" })
-	@SuppressLint("NewApi")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
+        // vue dans laquelle est ajouté les éléments
         View row = convertView;
+        // dernier element de la vue ajouter a la page
         View elem;
 
+        // on recupere la vue (normalement on test si elle n'existe pas déjà mais ça bug un peu)
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         row = inflater.inflate(R.layout.list, parent, false);
 
@@ -103,7 +100,11 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
         TextView titre = new TextView(context);
         titre.setText(title);
         titre.setId(1);
+        titre.setGravity(Gravity.CENTER);
         elem = titre;
+        ((TextView)elem).setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+        ((TextView)elem).setTypeface(Typeface.SERIF, Typeface.ITALIC);
+        elem.setPadding(0, 0, 0, 10);
         layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_TOP, 1);
         layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
         list.addView(titre, layoutParams1);
@@ -123,6 +124,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
             e.printStackTrace();
         }
         elem = img;
+        elem.setPadding(0, 0, 0, 10);
         list.addView(img, layoutParams1);
         layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -131,6 +133,9 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
         desc.setId(elem.getId() + 1);
         layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
         elem = desc;
+        ((TextView)elem).setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        ((TextView)elem).setTypeface(Typeface.SERIF);
+        elem.setPadding(0, 0, 0, 10);
         list.addView(desc, layoutParams1);
 
 
@@ -143,6 +148,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
             if (maps.get(position).get("info_" + i) != null && !maps.get(position).get("info_" + i).equals(""))
                 infonames[i] = maps.get(position).get("info_" + i);
         }
+        // parcours des infos
         for(int i = 0; i < infonames.length; i++)
         {
             if(infonames[i] == null) continue;
@@ -152,8 +158,12 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
             layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
             info.setText(infonames[i].getText());
             elem = info;
+            ((TextView)elem).setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            ((TextView)elem).setTypeface(Typeface.SERIF);
+            elem.setPadding(0, 0, 0, 10);
             list.addView(info, layoutParams1);
 
+            // ajout des boutons d'éditions des informations
             if(infonames[i].has_button())
             {
                 final int id = infonames[i].getId();
@@ -161,6 +171,8 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
 
                 switch (type)
                 {
+                    // ajout du bouton + et -
+                    // puis ajout du bouton edit si besoin
                     case Item.BUTTON_MORE_LESS:
                     case Item.BUTTON_MORE_LESS_EDIT:
                         layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -171,6 +183,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                         less.setText("-");
                         less.setId(elem.getId() + 1);
                         final int h = i;
+                        // diminue de 1 un des nombres
                         less.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -200,6 +213,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                             }
                         });
                         elem = less;
+                        elem.setPadding(0, 0, 0, 10);
                         list.addView(less, layoutParams1);
 
                         layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -256,12 +270,15 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                         edit.setId(elem.getId() + 1);
                         edit.setOnClickListener(new Edit(context, infonames[i], info));
                         elem = edit;
+                        elem.setPadding(0, 0, 0, 10);
                         list.addView(edit, layoutParams1);
                         break;
                 }
 
             }
         }
+
+        // ajout du lien vers les commentaires
         layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         TextView comm = new TextView(context);
         layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
@@ -270,6 +287,10 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
         comm.setId(elem.getId() + 1);
         comm.setOnClickListener(new Comment(main, context, title, comment_url, article_id));
         elem = comm;
+        elem.setPadding(0, 0, 0, 10);
+        ((TextView)elem).setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        ((TextView)elem).setTypeface(Typeface.SERIF);
+        elem.setPadding(0, 0, 10, 0);
         list.addView(comm, layoutParams1);
 
         if(Admin.is_admin(context))
@@ -290,6 +311,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                 }
             });
             elem = create;
+            elem.setPadding(0, 0, 0, 10);
             list.addView(create, layoutParams1);
 
             layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -308,6 +330,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                 }
             });
             elem = edit;
+            elem.setPadding(0, 0, 0, 10);
             list.addView(edit, layoutParams1);
 
             layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -352,6 +375,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                 }
             });
             elem = delete;
+            elem.setPadding(0, 0, 0, 10);
             list.addView(delete, layoutParams1);
         }
 

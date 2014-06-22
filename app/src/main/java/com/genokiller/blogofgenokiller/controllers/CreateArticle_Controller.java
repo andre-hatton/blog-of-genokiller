@@ -27,6 +27,7 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * Created by yoshizuka on 21/06/14.
+ * Page permettant de créer un article
  */
 public class CreateArticle_Controller extends Activity {
     /**
@@ -38,8 +39,8 @@ public class CreateArticle_Controller extends Activity {
 
         Url result = null;
         try {
+            // recuperation des infos contenu dans l'article
             result = new Application_Model(Application_Model.METHOD_GET, getApplicationContext()).execute(new String[]{Url.BASE_URL + "admin/articles/1/getInfos.json"}).get();
-            Log.d("DATA", ""+result);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -52,9 +53,11 @@ public class CreateArticle_Controller extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        // liste des informations a envoyer au serveur
         EditTextInfo[] listInput = new EditTextInfo[json.length() + 3];
 
-                LayoutInflater l = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        // On recupere la vue pour y ajouter des éléments dynamiquement
+        LayoutInflater l = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         View view = l.inflate(R.layout.create_article, null);
 
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.create_article_layout);
@@ -91,6 +94,7 @@ public class CreateArticle_Controller extends Activity {
         layout.addView(urlEdit);
 
         int j = 3;
+        // parcours des informations
         for(int i = 0; i < json.length(); i++)
         {
             JSONObject object = null;
@@ -143,6 +147,7 @@ public class CreateArticle_Controller extends Activity {
             }
         }
 
+        // permet d'acceder au information dans le onClick de validation
         final EditTextInfo[] listInfo = listInput;
         final Context context = this;
 
@@ -155,6 +160,7 @@ public class CreateArticle_Controller extends Activity {
                 params[0] = Url.BASE_URL + "admin/articles.json";
                 boolean submit = true;
                 int j = 1;
+                // creation des parametres a envoyé en parcourant les champs du formulaire
                 for(int i = 0; i < listInfo.length; i++)
                 {
                     if(listInfo[i].isMandatory() && listInfo[i].getText().toString().trim().length() <= 0)
@@ -188,6 +194,7 @@ public class CreateArticle_Controller extends Activity {
                         }
                     }
                 }
+                // liste de valeur static
                 params[j++] = "admin_article[avis]";
                 params[j++] = "";
                 params[j++] = "admin_article[type_id]";
@@ -207,7 +214,8 @@ public class CreateArticle_Controller extends Activity {
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     }
-                    Log.d("result", result.getResult()+"");
+                    // si la création a réussi on reçois le status HTTP 201
+                    // on peut donc revenir à l'accueil avec le nouvel article
                     if(result.getStatus() == 201)
                     {
                         Toast.makeText(context, "Enregistrement effectué", Toast.LENGTH_LONG).show();
@@ -216,6 +224,7 @@ public class CreateArticle_Controller extends Activity {
                         finish();
                         overridePendingTransition(R.xml.translate_left_center, R.xml.translate_center_right);
                     }
+                    // une erreur de données est survenur, par exemple l'URL de l'image inccorect
                     else if(result.getStatus() == 422)
                         Toast.makeText(context, "Vérifier les parametres, l'URL est elle correct ?", Toast.LENGTH_LONG).show();
                 }

@@ -28,7 +28,7 @@ public class Admin {
         Url result = null;
         try {
             result = new Application_Model(Application_Model.METHOD_GET, context, 0).execute(new String[]{Url.BASE_URL + "admin/authors.json"}).get();
-            if(result != null)
+            if(result != null && result.getStatus() == 200)
             {
                 try {
                     JSONArray json = new JSONArray(result.getResult());

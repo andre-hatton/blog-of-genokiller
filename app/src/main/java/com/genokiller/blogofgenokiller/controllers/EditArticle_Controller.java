@@ -79,7 +79,7 @@ public class EditArticle_Controller extends Activity {
                     layout.addView(descriptionLabel);
 
                     EditTextInfo descriptionEdit = new EditTextInfo(this);
-                    descriptionEdit.setText(json.getString("description"));
+                    descriptionEdit.setText(json.getString("description").replace("<br />", "\n"));
                     descriptionEdit.setMandatory(true);
                     descriptionEdit.setName("admin_article[description]");
                     listInput[j++] = descriptionEdit;

@@ -25,6 +25,7 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -44,6 +45,7 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
     public static int METHOD_GET = 1;
     public static int METHOD_POST = 2;
     public static int METHOD_PUT = 3;
+    public static int METHOD_DELETE = 4;
     private int type = METHOD_GET;
     private int timeout = 0;
     public Application_Model(){}
@@ -307,6 +309,12 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
         return results;
     }
 
+    public Url deleteJsonUrl(String url, List<? extends NameValuePair> params)
+    {
+        ((List<NameValuePair>)params).add(new BasicNameValuePair("_method", "delete"));
+        return postJsonUrl(url, params);
+    }
+
     public Application_Model setContext(Context context)
     {
         this.context = context;
@@ -341,6 +349,8 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
             result = postJsonUrl(url, nameValuePairs);
         else if(type == METHOD_PUT)
             result = putJsonUrl(url, nameValuePairs);
+        else if(type == METHOD_DELETE)
+            result = deleteJsonUrl(url, nameValuePairs);
         else
             result = getJsonString(url);
         if(result.getStatus() < 200 || result.getStatus() > 306)

@@ -10,7 +10,10 @@ import java.util.concurrent.ExecutionException;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -33,6 +36,7 @@ import android.widget.Toast;
 
 import com.genokiller.Blog_Application;
 import com.genokiller.blogofgenokiller.controllers.Application_Controller;
+import com.genokiller.blogofgenokiller.controllers.Articles_Controller;
 import com.genokiller.blogofgenokiller.controllers.CreateArticle_Controller;
 import com.genokiller.blogofgenokiller.controllers.EditArticle_Controller;
 import com.genokiller.blogofgenokiller.controllers.R;
@@ -280,11 +284,6 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                 public void onClick(View v) {
 
                     Intent intent = new Intent(context, CreateArticle_Controller.class);
-                    //Bundle bundle = new Bundle();
-                    // revien sur la premiere page
-                    //bundle.putInt("page", 1);
-                    //bundle.putString("search", query);
-                    //intent.putExtras(bundle);
                     context.startActivity(intent);
                     ((Activity) context).finish();
                     ((Activity) context).overridePendingTransition(R.xml.translate_right_center, R.xml.translate_center_left);
@@ -310,6 +309,50 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
             });
             elem = edit;
             list.addView(edit, layoutParams1);
+
+            layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
+            Button delete = new Button(context, null, android.R.attr.buttonStyleSmall);
+            delete.setText("Supprimer l'article");
+            delete.setId(elem.getId() + 1);
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(context).setTitle("Suppresion de l'article").setMessage("Voullez vous supprimer cet article ?")
+                            .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Url result = null;
+                                    try {
+                                        result = new Application_Model(Application_Model.METHOD_DELETE, context).execute(Url.BASE_URL + "admin/articles/" + article_id).get();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    } catch (ExecutionException e) {
+                                        e.printStackTrace();
+                                    }
+                                    if (result != null && result.getStatus() == 200)
+                                    {
+                                        Toast.makeText(context, "Suppression reussi", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(context, Articles_Controller.class);
+                                        context.startActivity(intent);
+                                        ((Activity) context).finish();
+                                        ((Activity) context).overridePendingTransition(R.xml.translate_right_center, R.xml.translate_center_left);
+                                    }
+                                    else
+                                        Toast.makeText(context, "Erruer lors de la suppression avec status : " + result.getStatus(), Toast.LENGTH_LONG).show();
+                                }
+                            })
+                    .setNegativeButton("non", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+
+                }
+            });
+            elem = delete;
+            list.addView(delete, layoutParams1);
         }
 
         String[] images = image_url.split("/");
@@ -371,7 +414,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
             // Creating the PopupWindow
             final PopupWindow popup = new PopupWindow(context);
             popup.setContentView(layout);
-            popup.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+            popup.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
             popup.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
             popup.setFocusable(true);
 

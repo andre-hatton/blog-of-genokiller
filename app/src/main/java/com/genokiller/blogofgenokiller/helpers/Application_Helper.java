@@ -302,7 +302,10 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, EditArticle_Controller.class);
-
+                    intent.putExtra("id", article_id);
+                    context.startActivity(intent);
+                    ((Activity) context).finish();
+                    ((Activity) context).overridePendingTransition(R.xml.translate_right_center, R.xml.translate_center_left);
                 }
             });
             elem = edit;

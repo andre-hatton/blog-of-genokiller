@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.genokiller.blogofgenokiller.models.Application_Model;
 
+import org.apache.http.conn.ConnectTimeoutException;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -24,13 +25,13 @@ public class Admin {
         SharedPreferences.Editor editor = settings.edit();
 
         boolean is_admin = false;
-        String result = null;
+        Url result = null;
         try {
-            result = new Application_Model(Application_Model.METHOD_GET).setContext(context).execute(new String[]{Url.BASE_URL + "admin/authors.json"}).get().getResult();
+            result = new Application_Model(Application_Model.METHOD_GET, context, 0).execute(new String[]{Url.BASE_URL + "admin/authors.json"}).get();
             if(result != null)
             {
                 try {
-                    JSONArray json = new JSONArray(result);
+                    JSONArray json = new JSONArray(result.getResult());
                     is_admin = true;
                 } catch (JSONException e) {
                     e.printStackTrace();

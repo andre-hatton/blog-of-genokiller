@@ -29,6 +29,8 @@ public class EditTextInfo extends EditText {
      * Identifie le type de l'info
      */
     private String info_type;
+    private int infoname_id;
+    private String name_infoname_id;
 
     public EditTextInfo(Context context) {
         super(context);
@@ -86,5 +88,21 @@ public class EditTextInfo extends EditText {
 
     public void setInfo_type(String info_type) {
         this.info_type = info_type;
+    }
+
+    public int getInfoname_id() {
+        return infoname_id;
+    }
+
+    public void setInfoname_id(int infoname_id) {
+        this.infoname_id = infoname_id;
+    }
+
+    public String getName_infoname_id() {
+        return name_infoname_id;
+    }
+
+    public void setName_infoname_id(String name_infoname_id) {
+        this.name_infoname_id = name_infoname_id;
     }
 }

@@ -33,200 +33,215 @@ public class EditArticle_Controller extends Activity {
     /**
      * Methode appelée a la création de l'activitée
      */
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LayoutInflater l = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View view = l.inflate(R.layout.edit_article, null);
 
-        Url result = null;
+        LinearLayout layout = (LinearLayout) view.findViewById(R.id.edit_article_layout);
+
+        Bundle extras = getIntent().getExtras();
+        final int article_id = Integer.parseInt(extras.getString("id"));
+        Url show = null;
+        EditTextInfo[] listInput = new EditTextInfo[100];
+        int j = 0;
         try {
-            result = new Application_Model(Application_Model.METHOD_GET, getApplicationContext()).execute(new String[]{Url.BASE_URL + "admin/articles/1/getInfos.json"}).get();
-            Log.d("DATA", "" + result);
+            show = new Application_Model(Application_Model.METHOD_GET, this).execute(Url.BASE_URL + "admin/articles/" + article_id + ".json").get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-        JSONArray json = null;
-        try {
-            json = new JSONArray(result.getResult());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        EditTextInfo[] listInput = new EditTextInfo[json.length() + 3];
-
-        LayoutInflater l = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View view = l.inflate(R.layout.create_article, null);
-
-        LinearLayout layout = (LinearLayout) view.findViewById(R.id.create_article_layout);
-
-        TextView titleLabel = new TextView(this);
-        titleLabel.setText("Title");
-        layout.addView(titleLabel);
-
-        EditTextInfo titleEdit = new EditTextInfo(this);
-        titleEdit.setName("admin_article[title]");
-        titleEdit.setMandatory(true);
-        listInput[0] = titleEdit;
-        layout.addView(titleEdit);
-
-        TextView descriptionLabel = new TextView(this);
-        descriptionLabel.setText("Description");
-        layout.addView(descriptionLabel);
-
-        EditTextInfo descriptionEdit = new EditTextInfo(this);
-        descriptionEdit.setMandatory(true);
-        descriptionEdit.setName("admin_article[description]");
-        descriptionEdit.setInputType(InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE);
-        listInput[1] = descriptionEdit;
-        layout.addView(descriptionEdit);
-
-        TextView urlLabel = new TextView(this);
-        urlLabel.setText("Url de l'image");
-        layout.addView(urlLabel);
-
-        EditTextInfo urlEdit = new EditTextInfo(this);
-        urlEdit.setName("admin_article[remote_image_url]");
-        urlEdit.setMandatory(true);
-        listInput[2] = urlEdit;
-        layout.addView(urlEdit);
-
-        int j = 3;
-        for(int i = 0; i < json.length(); i++)
-        {
-            JSONObject object = null;
+        if (show != null) {
+            String result = show.getResult();
+            JSONObject json = null;
             try {
-                object = json.getJSONObject(i);
+                json = new JSONObject(result);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String label = null;
-            String type_info = null;
-            boolean mandatory = false;
-            int id = 0;
-            try {
-                label = object.getString("name");
-                type_info = object.getString("type_info");
-                mandatory = object.getBoolean("mandatory");
-                id = object.getInt("id");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            if(label != null)
+            if(json != null)
             {
-                TextView labelText = new TextView(this);
-                labelText.setText(label);
-                layout.addView(labelText);
-                EditTextInfo info = new EditTextInfo(this);
-                if(type_info.equals("string"))
-                {
-                    info.setInputType(InputType.TYPE_CLASS_TEXT);
-                    info.setName("admin_article[infonames_attributes][" + id + "][name]");
-                }
-                else if(type_info.equals("integer"))
-                {
-                    info.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    info.setName("admin_article[infonames_attributes][" + id + "][entier]");
-                }
-                else if(type_info.equals("text"))
-                {
-                    info.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-                    info.setName("admin_article[infonames_attributes][" + id + "][long_name]");
-                }
-                info.setInfo_type(type_info);
-                info.setName_info_id("admin_article[infonames_attributes][" + id + "][info_id]");
-                info.setInfo_id(id);
-                info.setMandatory(mandatory);
-                listInput[j] = info;
-                j++;
-                layout.addView(info);
+                try {
+                    TextView titleLabel = new TextView(this);
+                    titleLabel.setText("Titre");
+                    layout.addView(titleLabel);
 
+                    EditTextInfo titleEdit = new EditTextInfo(this);
+                    titleEdit.setText(json.getString("title"));
+                    titleEdit.setMandatory(true);
+                    titleEdit.setName("admin_article[title]");
+                    listInput[j++] = titleEdit;
+                    layout.addView(titleEdit);
+
+                    TextView descriptionLabel = new TextView(this);
+                    descriptionLabel.setText("Description");
+                    layout.addView(descriptionLabel);
+
+                    EditTextInfo descriptionEdit = new EditTextInfo(this);
+                    descriptionEdit.setText(json.getString("description"));
+                    descriptionEdit.setMandatory(true);
+                    descriptionEdit.setName("admin_article[description]");
+                    listInput[j++] = descriptionEdit;
+                    layout.addView(descriptionEdit);
+
+                    TextView imageLabel = new TextView(this);
+                    imageLabel.setText("Url de l'image");
+                    layout.addView(imageLabel);
+
+                    EditTextInfo imageEdit = new EditTextInfo(this);
+                    imageEdit.setText(json.getString("image_url"));
+                    imageEdit.setMandatory(true);
+                    imageEdit.setName("admin_article[remote_image_url]");
+                    listInput[j++] = imageEdit;
+                    layout.addView(imageEdit);
+
+                    JSONArray infos = json.getJSONArray("infonames");
+                    for(int i = 0; i < infos.length(); i++)
+                    {
+                        JSONObject info = infos.getJSONObject(i);
+                        final int infoname_id = info.getInt("id");
+                        final boolean mandatory = info.getBoolean("mandatory");
+                        final String info_name = info.getString("info");
+                        final String long_name = info.getString("long_name");
+                        final String name = info.getString("name");
+                        final String str_entier = info.getString("entier");
+                        int int_entier = -1;
+                        if(!str_entier.equals("null")) {
+                            int_entier = Integer.parseInt(str_entier);
+                        }
+                        final int entier = int_entier;
+                        final int info_id = info.getInt("info_id");
+
+                        TextView label = new TextView(this);
+                        label.setText(info_name);
+                        layout.addView(label);
+
+                        EditTextInfo edit = new EditTextInfo(this);
+                        edit.setMandatory(mandatory);
+                        edit.setInfo_id(info_id);
+                        edit.setName_info_id("admin_article[infonames_attributes][" + info_id + "][info_id]");
+                        edit.setInfoname_id(infoname_id);
+                        edit.setName_infoname_id("admin_article[infonames_attributes][" + info_id + "][id]");
+                        if(!long_name.isEmpty())
+                        {
+                            edit.setText(long_name);
+                            edit.setName("admin_article[infonames_attributes][" + info_id + "][long_name]");
+                            edit.setInfo_type("text");
+                        }
+                        else if(!name.isEmpty())
+                        {
+                            edit.setText(name);
+                            edit.setName("admin_article[infonames_attributes][" +info_id + "][name]");
+                            edit.setInfo_type("string");
+                        }
+                        else if(entier > -1)
+                        {
+                            edit.setText(String.valueOf(entier));
+                            edit.setInputType(InputType.TYPE_CLASS_NUMBER);
+                            edit.setName("admin_article[infonames_attributes][" +info_id + "][entier]");
+                            edit.setInfo_type("integer");
+                        }
+                        listInput[j++] = edit;
+                        layout.addView(edit);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
+            final EditTextInfo[] listInfo = listInput;
+            final Context context = this;
+            Button submit = new Button(this);
+            submit.setText("Mettre à jour");
+            submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String[] params = new String[listInfo.length * 10 + 8];
+                    params[0] = Url.BASE_URL + "admin/articles/" + article_id + ".json";
+                    boolean submit = true;
+                    int j = 1;
+                    for(int i = 0; i < listInfo.length; i++)
+                    {
+                        if(listInfo[i] == null)
+                            break;
+                        if(listInfo[i].isMandatory() && listInfo[i].getText().toString().trim().length() <= 0)
+                            submit = false;
+                        params[j++] = listInfo[i].getName_info_id();
+                        params[j++] = String.valueOf(listInfo[i].getInfo_id());
+                        params[j++] = listInfo[i].getName();
+                        params[j++] = listInfo[i].getText().toString().trim();
+                        params[j++] = listInfo[i].getName_infoname_id();
+                        params[j++] = String.valueOf(listInfo[i].getInfoname_id());
+                        if(listInfo[i].has_type_info())
+                        {
+                            if(listInfo[i].getInfo_type().equals("integer"))
+                            {
+                                params[j++] = listInfo[i].getName().replace("[entier]", "[name]");
+                                params[j++] = "";
+                                params[j++] = listInfo[i].getName().replace("[entier]", "[long_name]");
+                                params[j++] = "";
+                            }
+                            else if(listInfo[i].getInfo_type().equals("string"))
+                            {
+                                params[j++] = listInfo[i].getName().replace("[name]", "[entier]");
+                                params[j++] = "";
+                                params[j++] = listInfo[i].getName().replace("[name]", "[long_name]");
+                                params[j++] = "";
+                            }
+                            else if(listInfo[i].getInfo_type().equals("text"))
+                            {
+                                params[j++] = listInfo[i].getName().replace("[long_name]", "[entier]");
+                                params[j++] = "";
+                                params[j++] = listInfo[i].getName().replace("[long_name]", "[name]");
+                                params[j++] = "";
+                            }
+                        }
+                    }
+                    params[j++] = "admin_article[avis]";
+                    params[j++] = "";
+                    params[j++] = "admin_article[type_id]";
+                    params[j++] = "1";
+                    params[j++] = "admin_article[author_id]";
+                    params[j++] = "1";
+                    params[j++] = "commit";
+                    params[j++] = "Update Article";
+
+                    if(submit == true)
+                    {
+                        Url result = null;
+                        try {
+                            result = new Application_Model(Application_Model.METHOD_PUT, context).execute(params).get();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
+                        Log.d("result", result.getResult()+"");
+                        if(result.getStatus() == 204)
+                        {
+                            Toast.makeText(context, "Enregistrement effectué", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(context, Articles_Controller.class);
+                            startActivity(intent);
+                            finish();
+                            overridePendingTransition(R.xml.translate_left_center, R.xml.translate_center_right);
+                        }
+                        else if(result.getStatus() == 422)
+                            Toast.makeText(context, "Vérifier les parametres, l'URL est elle correct ?", Toast.LENGTH_LONG).show();
+                        else if(result.getStatus() > 399)
+                            Toast.makeText(context, "Uns erreur est survenue", Toast.LENGTH_LONG).show();
+                        else if (result.getStatus() > 500)
+                            Toast.makeText(context, "Le serveur ne répond pas", Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(context, "Parametres obligatoire", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+            layout.addView(submit);
         }
 
-        final EditTextInfo[] listInfo = listInput;
-        final Context context = this;
 
-        Button valid = new Button(this);
-        valid.setText("Valider");
-        valid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String[] params = new String[listInfo.length * 8 + 9];
-                params[0] = Url.BASE_URL + "admin/articles.json";
-                boolean submit = true;
-                int j = 1;
-                for(int i = 0; i < listInfo.length; i++)
-                {
-                    if(listInfo[i].isMandatory() && listInfo[i].getText().toString().trim().length() <= 0)
-                        submit = false;
-                    params[j++] = listInfo[i].getName_info_id();
-                    params[j++] = String.valueOf(listInfo[i].getInfo_id());
-                    params[j++] = listInfo[i].getName();
-                    params[j++] = listInfo[i].getText().toString().trim();
-                    if(listInfo[i].has_type_info())
-                    {
-                        if(listInfo[i].getInfo_type().equals("integer"))
-                        {
-                            params[j++] = listInfo[i].getName().replace("[entier]", "[name]");
-                            params[j++] = "";
-                            params[j++] = listInfo[i].getName().replace("[entier]", "[long_name]");
-                            params[j++] = "";
-                        }
-                        else if(listInfo[i].getInfo_type().equals("string"))
-                        {
-                            params[j++] = listInfo[i].getName().replace("[name]", "[entier]");
-                            params[j++] = "";
-                            params[j++] = listInfo[i].getName().replace("[name]", "[long_name]");
-                            params[j++] = "";
-                        }
-                        else if(listInfo[i].getInfo_type().equals("text"))
-                        {
-                            params[j++] = listInfo[i].getName().replace("[long_name]", "[entier]");
-                            params[j++] = "";
-                            params[j++] = listInfo[i].getName().replace("[long_name]", "[name]");
-                            params[j++] = "";
-                        }
-                    }
-                }
-                params[j++] = "admin_article[avis]";
-                params[j++] = "";
-                params[j++] = "admin_article[type_id]";
-                params[j++] = "1";
-                params[j++] = "admin_article[author_id]";
-                params[j++] = "1";
-                params[j++] = "commit";
-                params[j++] = "Create Article";
-
-                if(submit == true)
-                {
-                    Url result = null;
-                    try {
-                        result = new Application_Model(Application_Model.METHOD_POST, context).execute(params).get();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
-                    Log.d("result", result.getResult()+"");
-                    if(result.getStatus() == 201)
-                    {
-                        Toast.makeText(context, "Enregistrement effectué", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(context, Articles_Controller.class);
-                        startActivity(intent);
-                        finish();
-                        overridePendingTransition(R.xml.translate_left_center, R.xml.translate_center_right);
-                    }
-                    else if(result.getStatus() == 422)
-                        Toast.makeText(context, "Vérifier les parametres, l'URL est elle correct ?", Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    Toast.makeText(context, "Parametres obligatoire", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-        layout.addView(valid);
         setContentView(view);
     }
 

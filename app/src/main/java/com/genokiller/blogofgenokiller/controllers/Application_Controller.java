@@ -147,7 +147,7 @@ public class Application_Controller extends ListActivity
 		// creation de la page appelé
 		String url = Url.BASE_URL + "articles/" + page + "/10.json";
 		// données json trouvées
-		String json = null;
+		Url json = null;
 		if (has_search)
 			try
 			{
@@ -158,12 +158,13 @@ public class Application_Controller extends ListActivity
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-        json = article.setContext(this).getJsonString(url).getResult();
+        json = article.setContext(this).getJsonString(url);
+        Log.d("RESULT", json.getResult() + " " + json.getStatus());
         try
 		{
 			// Getting Array of Contacts
 
-			jsonArray = new JSONArray(json);
+			jsonArray = new JSONArray(json.getResult());
 			if (jsonArray.length() < 1)
 			{
 				isEnd = true;

@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.http.Header;
+import org.apache.http.HttpConnection;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -31,6 +32,7 @@ import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
@@ -43,6 +45,7 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
     public static int METHOD_POST = 2;
     public static int METHOD_PUT = 3;
     private int type = METHOD_GET;
+    private int timeout = 0;
     public Application_Model(){}
     Context context;
     public Application_Model(int method)
@@ -54,12 +57,20 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
         this.type = method;
         this.context = context;
     }
+    public Application_Model(int method, Context context, int timeout)
+    {
+        this.type = method;
+        this.context = context;
+        this.timeout = timeout;
+    }
 	public Url getJsonString(String url)
 	{
         Url results = new Url();
 		HttpGet httpGet = null;
 		StringBuilder builder = new StringBuilder();
-		HttpClient client = new DefaultHttpClient();
+        HttpParams httpParameters = new BasicHttpParams();
+        HttpConnectionParams.setConnectionTimeout(httpParameters, timeout);
+        HttpClient client = new DefaultHttpClient(httpParameters);
 		try
 		{
 			httpGet = new HttpGet(url);
@@ -337,4 +348,12 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
         return result;
     }
 
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public Application_Model setTimeout(int timeout) {
+        this.timeout = timeout;
+        return this;
+    }
 }

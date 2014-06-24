@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.genokiller.blogofgenokiller.utils.Admin;
 import com.genokiller.blogofgenokiller.utils.Url;
@@ -17,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.http.Header;
-import org.apache.http.HttpConnection;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -26,7 +23,6 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -43,13 +39,35 @@ import org.json.JSONObject;
 
 public class Application_Model extends AsyncTask<String, Integer, Url>
 {
+    /**
+     * Methode d'envoie en GET
+     */
     public static int METHOD_GET = 1;
+    /**
+     * Methode d'envoie en POST
+     */
     public static int METHOD_POST = 2;
+    /**
+     * Methode d'envoie en PUT
+     */
     public static int METHOD_PUT = 3;
+    /**
+     * Methode d'envoie en DELETE
+     */
     public static int METHOD_DELETE = 4;
+    /**
+     * Methode par defaut
+     */
     private int type = METHOD_GET;
+    /**
+     * Timeout des requetes
+     */
     private int timeout = 0;
     public Application_Model(){}
+
+    /**
+     * Lien vers le context
+     */
     Context context;
     public Application_Model(int method)
     {
@@ -66,6 +84,12 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
         this.context = context;
         this.timeout = timeout;
     }
+
+    /**
+     * Création d'une requête avec des paramètre passer en GET
+     * @param url
+     * @return Url Données retourné par le serveur
+     */
 	public Url getJsonString(String url)
 	{
         Url results = new Url();
@@ -122,6 +146,12 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
 		return results;
 	}
 
+    /**
+     * Envoie des données POST au serveur
+     * @param url Url du site
+     * @param params Parametres à envoyer
+     * @return Url Resultat retourné par le serveur
+     */
     public Url postJsonUrl(String url, List<? extends NameValuePair> params)
     {
         Url results = new Url();
@@ -134,6 +164,7 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
         try
         {
             httpPost = new HttpPost(url);
+            // ajout du cookier de session ainsi que les en-tête HTTP
             SharedPreferences settings = context.getSharedPreferences("admin", 0);
             String name = settings.getString("cookie_name", "");
             String value = settings.getString("cookie_value", "");
@@ -151,6 +182,7 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
         }
         try
         {
+            // on recupere le token permettant l'authentification pour l'envoyé dans la requête
             if(Admin.is_admin(context))
             {
                 Url token = getJsonString(Url.BASE_URL + "admin/articles/getCsrf.json");
@@ -167,7 +199,7 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
             httpPost.setEntity(new UrlEncodedFormEntity(params));
             HttpResponse response = client.execute(httpPost);
 
-
+            // on recupere le cookie de session il est envoyé
             if(!Admin.is_admin(context))
             {
                 List<Cookie> cookies;
@@ -184,7 +216,6 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
                         break cookie;
                     String name = cookies.get(session).getName();
                     String value = cookies.get(session).getValue();
-                    Log.d("COOKIE", name + " : " + value);
                     SharedPreferences settings = context.getSharedPreferences("admin", 0);
                     if((settings.getString("cookie_name", "").isEmpty() || !settings.getBoolean("is_admin", false)) && !value.isEmpty())
                     {
@@ -192,9 +223,6 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
                         editor.putBoolean("is_admin", true);
                         editor.putString("cookie_name", name);
                         editor.putString("cookie_value", value);
-                        Date date = new Date();
-                        long timestamp = date.getTime();
-                        editor.putLong("timestamp", timestamp);
 
                         // Commit the edits!
                         editor.commit();
@@ -219,8 +247,6 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
                 }
             }
 
-            for(int i = 0; i < httpPost.getAllHeaders().length; i++)
-                Log.d("HEADER", httpPost.getAllHeaders()[i].getName() + " : " + httpPost.getAllHeaders()[i].getValue());
         }
         catch (ClientProtocolException e)
         {
@@ -230,11 +256,16 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
         {
             e.printStackTrace();
         }
-        Log.d("PUT", builder.toString());
         results.setResult(builder.toString());
         return results;
     }
 
+    /**
+     * Envoie des données pour une mise à jour
+     * @param url Url de la page mis à jour
+     * @param params Parametres à envoyer
+     * @return Url Les données reçu par le serveur
+     */
     public Url putJsonUrl(String url, List<? extends NameValuePair> params)
     {
         Url results = new Url();
@@ -310,6 +341,12 @@ public class Application_Model extends AsyncTask<String, Integer, Url>
         return results;
     }
 
+    /**
+     * Envoi d'une requête de suppression (qui correspon à une requête POST avec la parametre _method à delete)
+     * @param url L'url de la page de suppression
+     * @param params Parametres à envoyer
+     * @return Url donnée retourné par le serveur
+     */
     public Url deleteJsonUrl(String url, List<? extends NameValuePair> params)
     {
         ((List<NameValuePair>)params).add(new BasicNameValuePair("_method", "delete"));

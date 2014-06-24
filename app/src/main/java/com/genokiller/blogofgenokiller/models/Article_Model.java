@@ -19,6 +19,7 @@ public class Article_Model extends Application_Model
 	 * Url de l'image de l'article
 	 */
 	private String	image_url;
+    private int height;
 	private String				comment_url;
 	private int					comment_count;
 
@@ -29,6 +30,7 @@ public class Article_Model extends Application_Model
 	public final static String	IMAGE_URL	= "image_url";
 	public final static String	COMMENT_URL	= "comment";
 	public final static String	COMMENT_COUNT	= "comment_count";
+    public final static String  IMAGE_HEIGHT = "height";
 
 	public Article_Model()
 	{
@@ -137,4 +139,11 @@ public class Article_Model extends Application_Model
 		this.comment_count = comment_count;
 	}
 
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
 }

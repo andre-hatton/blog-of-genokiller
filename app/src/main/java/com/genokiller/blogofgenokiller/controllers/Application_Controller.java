@@ -143,6 +143,16 @@ public class Application_Controller extends ListActivity
 		});
 	}
 
+
+    /**
+     * Taille de l'écran
+     * @return La longueur de la page
+     */
+    public int getWidth()
+    {
+        return width_screen;
+    }
+
 	/**
 	 * Récupération des données json dans notre map
 	 * 
@@ -202,7 +212,8 @@ public class Application_Controller extends ListActivity
 				max_page = c.getInt("max");
 				String title = c.getString(Article_Model.TITLE);
 				String description = c.getString(Article_Model.DESCRIPTION).replaceAll("<br />", "\n");
-				String image_url = c.getString(Article_Model.IMAGE_URL);
+                String image_url = c.getString(Article_Model.IMAGE_URL);
+                String image_height = c.getString(Article_Model.IMAGE_HEIGHT);
 				String comment_url = c.getString(Article_Model.COMMENT_URL);
 				int comment_count = c.getInt(Article_Model.COMMENT_COUNT);
 				int id = c.getInt(Article_Model.ID);
@@ -213,7 +224,8 @@ public class Application_Controller extends ListActivity
 				map.put(Article_Model.ID, new Item(String.valueOf(id)));
 				map.put(Article_Model.TITLE, new Item(title));
 				map.put(Article_Model.DESCRIPTION, new Item(description));
-				map.put(Article_Model.IMAGE_URL, new Item(image_url));
+                map.put(Article_Model.IMAGE_URL, new Item(image_url));
+                map.put(Article_Model.IMAGE_HEIGHT, new Item(String.valueOf(image_height)));
 				map.put(Article_Model.COMMENT_URL, new Item(comment_url));
 				map.put(Article_Model.COMMENT_COUNT, new Item(String.valueOf(comment_count)));
 

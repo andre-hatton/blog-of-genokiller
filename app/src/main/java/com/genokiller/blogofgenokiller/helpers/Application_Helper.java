@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.genokiller.Blog_Application;
 import com.genokiller.blogofgenokiller.controllers.Application_Controller;
 import com.genokiller.blogofgenokiller.controllers.Articles_Controller;
+import com.genokiller.blogofgenokiller.controllers.CommentAdmin_Controller;
 import com.genokiller.blogofgenokiller.controllers.CreateArticle_Controller;
 import com.genokiller.blogofgenokiller.controllers.EditArticle_Controller;
 import com.genokiller.blogofgenokiller.controllers.R;
@@ -77,6 +78,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
+        int margin_bottom = 20;
         // vue dans laquelle est ajouté les éléments
         View row = convertView;
         // dernier element de la vue ajouter a la page
@@ -90,6 +92,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
         String description = maps.get(position).get(Article_Model.DESCRIPTION).getText();
         String title = maps.get(position).get(Article_Model.TITLE).getText();
         String image_url = maps.get(position).get(Article_Model.IMAGE_URL).getText();
+        String image_height = maps.get(position).get(Article_Model.IMAGE_HEIGHT).getText();
         String comment_url = maps.get(position).get(Article_Model.COMMENT_URL).getText();
         String comment_count = maps.get(position).get(Article_Model.COMMENT_COUNT).getText();
         final String article_id = maps.get(position).get(Article_Model.ID).getText();
@@ -97,6 +100,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
         RelativeLayout list = (RelativeLayout)row.findViewById(R.id.listview);
         RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
+        // affichage du titre
         TextView titre = new TextView(context);
         titre.setText(title);
         titre.setId(1);
@@ -104,13 +108,16 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
         elem = titre;
         ((TextView)elem).setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
         ((TextView)elem).setTypeface(Typeface.SERIF, Typeface.ITALIC);
-        elem.setPadding(0, 0, 0, 10);
+        layoutParams1.setMargins(0, 0, 0, margin_bottom);
         layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_TOP, 1);
         layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
         list.addView(titre, layoutParams1);
 
+        // preparation de l'image
         layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         ImageView img = new ImageView(context);
+        if(image_height != null)
+            img.setMinimumHeight(Integer.parseInt(image_height));
         img.setTag(imageTagFactory.build(image_url, context));
         layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
         img.setId(elem.getId() + 1);
@@ -124,10 +131,11 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
             e.printStackTrace();
         }
         elem = img;
-        elem.setPadding(0, 0, 0, 10);
+        layoutParams1.setMargins(0, 0, 0, margin_bottom);
         list.addView(img, layoutParams1);
-        layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
+        // affichage de la description
+        layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         TextView desc = new TextView(context);
         desc.setText(description);
         desc.setId(elem.getId() + 1);
@@ -135,7 +143,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
         elem = desc;
         ((TextView)elem).setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         ((TextView)elem).setTypeface(Typeface.SERIF);
-        elem.setPadding(0, 0, 0, 10);
+        layoutParams1.setMargins(0, 0, 0, margin_bottom);
         list.addView(desc, layoutParams1);
 
 
@@ -151,7 +159,10 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
         // parcours des infos
         for(int i = 0; i < infonames.length; i++)
         {
+            // si aucune info on va à la prochaine boucle
             if(infonames[i] == null) continue;
+
+            // affichage de l'info
             layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             final TextView info = new TextView(context);
             info.setId(elem.getId() + 1);
@@ -160,7 +171,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
             elem = info;
             ((TextView)elem).setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             ((TextView)elem).setTypeface(Typeface.SERIF);
-            elem.setPadding(0, 0, 0, 10);
+            layoutParams1.setMargins(0, 0, 0, margin_bottom);
             list.addView(info, layoutParams1);
 
             // ajout des boutons d'éditions des informations
@@ -213,7 +224,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                             }
                         });
                         elem = less;
-                        elem.setPadding(0, 0, 0, 10);
+                        layoutParams1.setMargins(0, 0, 0, margin_bottom);
                         list.addView(less, layoutParams1);
 
                         layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -270,7 +281,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                         edit.setId(elem.getId() + 1);
                         edit.setOnClickListener(new Edit(context, infonames[i], info));
                         elem = edit;
-                        elem.setPadding(0, 0, 0, 10);
+                        layoutParams1.setMargins(0, 0, 0, margin_bottom);
                         list.addView(edit, layoutParams1);
                         break;
                 }
@@ -285,14 +296,15 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
         comm.setText("Voir les commentaires (" + comment_count + ")");
         comm.setTag(comment_url);
         comm.setId(elem.getId() + 1);
+        // apparition du popup des commentaires
         comm.setOnClickListener(new Comment(main, context, title, comment_url, article_id));
         elem = comm;
-        elem.setPadding(0, 0, 0, 10);
         ((TextView)elem).setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         ((TextView)elem).setTypeface(Typeface.SERIF);
-        elem.setPadding(0, 0, 10, 0);
+        layoutParams1.setMargins(0, 0, 0, margin_bottom);
         list.addView(comm, layoutParams1);
 
+        // affichage des bouton de création/mise à jour er suppression
         if(Admin.is_admin(context))
         {
             layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -311,7 +323,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                 }
             });
             elem = create;
-            elem.setPadding(0, 0, 0, 10);
+            layoutParams1.setMargins(0, 0, 0, margin_bottom);
             list.addView(create, layoutParams1);
 
             layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -330,7 +342,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                 }
             });
             elem = edit;
-            elem.setPadding(0, 0, 0, 10);
+            layoutParams1.setMargins(0, 0, 0, margin_bottom);
             list.addView(edit, layoutParams1);
 
             layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -365,21 +377,37 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
                                         Toast.makeText(context, "Erruer lors de la suppression avec status : " + result.getStatus(), Toast.LENGTH_LONG).show();
                                 }
                             })
-                    .setNegativeButton("non", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).show();
+                            .setNegativeButton("non", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
 
                 }
             });
             elem = delete;
-            elem.setPadding(0, 0, 0, 10);
+            layoutParams1.setMargins(0, 0, 0, margin_bottom);
             list.addView(delete, layoutParams1);
-        }
 
-        String[] images = image_url.split("/");
+            layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams1.addRule(RelativeLayout.BELOW, elem.getId());
+            Button comment = new Button(context, null, android.R.attr.buttonStyleSmall);
+            comment.setText("Gérer les commentaires");
+            comment.setId(elem.getId() + 1);
+            comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, CommentAdmin_Controller.class);
+                    context.startActivity(intent);
+                    context.finish();
+                    context.overridePendingTransition(R.xml.translate_right_center, R.xml.translate_center_left);
+                }
+            });
+            elem = comment;
+            layoutParams1.setMargins(0, 0, 0, margin_bottom);
+            list.addView(comment, layoutParams1);
+        }
 
 		return row;
 	}
@@ -438,7 +466,7 @@ public class Application_Helper extends ArrayAdapter<HashMap<String, Item>>
             // Creating the PopupWindow
             final PopupWindow popup = new PopupWindow(context);
             popup.setContentView(layout);
-            popup.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
+            popup.setWidth(((Application_Controller)context).getWidth() / 2);
             popup.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
             popup.setFocusable(true);
 

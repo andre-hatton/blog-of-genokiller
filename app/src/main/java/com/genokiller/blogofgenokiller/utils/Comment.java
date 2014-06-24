@@ -69,9 +69,9 @@ public class Comment implements OnClickListener
 		// recuperation du layout du popup
 		View popUpView = main.getLayoutInflater().inflate(R.layout.comment_popup, null);
 		// creation du popup (taille max de l'application)
-		final PopupWindow p = new PopupWindow(popUpView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, true);
+		final PopupWindow p = new PopupWindow(popUpView, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, true);
 		// affichage du popup avec centrage au milieu
-		p.showAtLocation(v, Gravity.CENTER_HORIZONTAL, 0, 0);
+		p.showAtLocation(v, Gravity.CENTER, 0, 0);
 		// recuperation du bouton de fermeture du popup
 		Button close = (Button) popUpView.findViewById(R.id.close_popup);
 		close.setOnClickListener(new OnClickListener()
@@ -104,7 +104,6 @@ public class Comment implements OnClickListener
 		}
 		catch (JSONException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// parcours des commentaires
@@ -266,7 +265,6 @@ public class Comment implements OnClickListener
 				}
 				catch (JSONException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

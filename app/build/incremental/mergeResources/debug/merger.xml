@@ -165,9 +165,9 @@
             <file
                 path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/values/colors.xml"
                 qualifiers="" >
-                <color name="dark_slate_gray" >#2F4F4F
-                </color>
                 <color name="gray_1" >#C0C0C0
+                </color>
+                <color name="dark_slate_gray" >#2F4F4F
                 </color>
                 <color name="gray_2" >#AFAFAF
                 </color>
@@ -185,13 +185,13 @@
                 </string>
                 <string name="pull_to_refresh_release_label" >Release to refresh…
                 </string>
-                <string name="app_name" >blog of genokiller
-                </string>
-                <string name="pull_to_refresh_refreshing_label" >Loading…
+                <string name="commentaire" >Votre commentaire
                 </string>
                 <string name="pull_to_refresh_tap_label" >Tap to refresh…
                 </string>
-                <string name="commentaire" >Votre commentaire
+                <string name="pull_to_refresh_refreshing_label" >Loading…
+                </string>
+                <string name="app_name" >blog of genokiller
                 </string>
                 <string name="submit" >Envoyer
                 </string>
@@ -285,6 +285,51 @@
             <file
                 name="edit_article"
                 path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/edit_article.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="image_loader"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-xxhdpi/image_loader.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="image_loader"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-mdpi/image_loader.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="image_loader"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-ldpi/image_loader.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="image_loader"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-hdpi/image_loader.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="image_loader"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/drawable-xhdpi/image_loader.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="comment_fragment"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/comment_fragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="comment_verified_layout"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/comment_verified_layout.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="comment_accepted_layout"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/comment_accepted_layout.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="comment_edit_popup_layout"
+                path="/home/yoshizuka/AndroidStudioProjects/blog/app/src/main/res/layout/comment_edit_popup_layout.xml"
                 qualifiers=""
                 type="layout" />
         </source>

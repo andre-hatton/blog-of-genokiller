@@ -25,5 +25,7 @@
         </activity>
         <activity android:name="com.genokiller.blogofgenokiller.controllers.EditArticle_Controller" android:parentActivityName="com.genokiller.blogofgenokiller.controllers.EditArticle_Controller">
         </activity>
+        <activity android:name="com.genokiller.blogofgenokiller.controllers.CommentAdmin_Controller" android:parentActivityName="com.genokiller.blogofgenokiller.controllers.CommentAdmin_Controller">
+        </activity>
 	</application>
 </manifest>

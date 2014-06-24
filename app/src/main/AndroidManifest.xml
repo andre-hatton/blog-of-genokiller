@@ -49,5 +49,9 @@
             android:name=".EditArticle_Controller"
             android:parentActivityName="com.genokiller.blogofgenokiller.controllers.EditArticle_Controller" >
         </activity>
+        <activity
+            android:name=".CommentAdmin_Controller"
+            android:parentActivityName="com.genokiller.blogofgenokiller.controllers.CommentAdmin_Controller" >
+        </activity>
 	</application>
 </manifest>

@@ -48,7 +48,7 @@ public class Blog_Application extends Application
 		SettingsBuilder settingsBuilder = new SettingsBuilder();
 
 		// You can force the urlConnection to disconnect after every call.
-		settingsBuilder.withDisconnectOnEveryCall(true);
+		settingsBuilder.withDisconnectOnEveryCall(false);
 
 		// We have different types of cache, check cache package for more info
 		settingsBuilder.withCacheManager(new LruBitmapCache(this));

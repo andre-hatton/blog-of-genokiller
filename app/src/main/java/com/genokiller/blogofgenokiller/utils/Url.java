@@ -9,7 +9,8 @@ import com.genokiller.blogofgenokiller.models.Application_Model;
 public class Url {
     private int status;
     private String result;
-    public static final String BASE_URL = "http://192.168.1.3:3000/";
+    //public static final String BASE_URL = "http://192.168.1.3:3000/";
+    public static final String BASE_URL = "http://blog-of-genokiller.herokuapp.com/";
 
     public int getStatus() {
         return status;
